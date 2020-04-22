@@ -1,0 +1,22 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.confirm_payment}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="order-box">
+    <image src="../../images/profile_tegral.png" />
+    <view class="order-info">
+      <view class="order-money">{{language.product_total}}
+        <text>{{symbol}} {{money}}</text>
+      </view>
+      <view class="order-number">{{language.order_no}}：{{order}}</view>
+    </view>
+  </view>
+  <!--
+  <view class="adds-box">
+    <image src="../../images/profile_address.png" />
+    <view class="adds-info">
+      <view class="name-tel">{{curAddressData.linkMan}} {{curAddressData.mobile}}</view>
+      <view class="addr-text">{{curAddressData.address}}</view>
+    </view>
+  </view>
+  -->
+  <view class="pay-btn" bindtap="toPayTap" data-id="{{order}}" data-money="{{money}}">{{language.wxpay}} {{symbol}}{{money}}</view>
+</view>

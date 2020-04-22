@@ -1,0 +1,51 @@
+<!--pages/search/search.wxml-->
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.search}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+	<view class="type-header-menu">
+		<view class="type-search">
+			<image src="../../images/search.png" />
+			<input class="input {{ searchInput == true ? 'active':''}}" type="text" confirm-type="search" placeholder=""
+			 bindfocus="searchFocus" bindconfirm="search" focus="{{true}}"></input>
+			<view hidden="{{search}}" bindtap="searchClose" class="header-search-btn">{{language.cancel}}</view>
+		</view>
+	</view>
+	<view class="search-cont-box" wx:if="{{recentSearch.length && searchHidden}}">
+		<view class="title-and-btn">
+			<view class="title">{{language.recent_search}}</view>
+			<view class="btn" bindtap="clearHistory">
+				<image src="../../images/del.png" />
+			</view>
+		</view>
+		<view class="keywords-li">
+			<block wx:for="{{recentSearch}}" wx:key="recent">
+				<view bindtap="goSearch" class="item" data-text="{{item}}">{{item}}</view>
+			</block>
+		</view>
+	</view>
+  
+
+  
+  <scroll-view class="goods-container" bindscrolltolower="loadProduct"  scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >
+    <view hidden="{{searchHidden}}" class="goods-box" wx:for-items="{{searchs}}" wx:key="{{index}}" bindtap="toDetailTap"
+    data-id="{{item.id}}">
+      <view class="img-box">
+        <image src="{{item.pic}}" class="image" mode="widthFix" lazy-load="true" />
+        
+      </view>
+      <view class="goods-list-title">{{item.name}}</view>
+        
+        <block wx:if="{{item.special_price}}" >
+        <view class="goods-price">{{item.special_price.symbol}} {{item.special_price.value}}</view>
+        <view class="goods-originalPrice">{{item.price.symbol}} {{item.price.value}}</view>
+        </block>
+        <block wx:if="{{!item.special_price}}" >
+        <view class="goods-list-money">{{item.price.symbol}} {{item.price.value}}</view>
+        </block>
+    </view>
+    <view hidden="{{noneHidden}}" class="goods-none">
+      <image src="../../images/search_empty.png" />
+      <text>{{language.empty_product}}</text>
+    </view>
+  </scroll-view>
+</view>
+

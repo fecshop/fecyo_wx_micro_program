@@ -1,0 +1,43 @@
+<template name="no-goods">
+  <view class="title-box">
+    <image class="box-none" src="../../images/none/cart_empty.png"></image>
+    {{language.add_same_product_to_cart}}
+  </view>
+</template>
+
+<template name="cart-goods-list">
+  
+  <view class="goodsList">
+    <view class="a-gooods" wx:for="{{list}}" wx:key="{{index}}">
+      <view data-itemid="{{item.item_id}}"  class="a-goods-conts {{item.active? 'active':''}}" bindtap="selectTap" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
+        <view class="goods-info">
+          <view class="img-box">
+            <image src="{{item.pic}}" class="img" />
+          </view>
+          <view class="text-box">
+            <view class="goods-title">{{item.name}}</view>
+            <view class="goods-label">{{item.label}}</view>
+            <view class="goods-price">{{currencySymbol}} {{item.price}}</view>
+            <view class="buy-num">
+              <view class="jian-btn {{item.number==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}"  data-itemid="{{item.item_id}}"  >-</view>
+              <input type="number" value="{{item.number}}" disabled/>
+              <view class="jia-btn {{item.number==50? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}" data-itemid="{{item.item_id}}" >+</view>
+            </view>
+          </view>
+        </view>
+        <view class="delete-btn" data-index="{{index}}" catchtap="delItem"  data-itemid="{{item.item_id}}">
+          
+          {{language.remove}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="jiesuan-box">
+    <view class="left-price">
+      <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">{{language.select_all}}</view>
+      <view class="total" hidden="{{noSelect}}">{{language.grand_total}} ：{{currencySymbol}} {{totalPrice}}</view>
+    </view>
+    <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">{{language.place_order}}</view>
+    <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">{{language.remove}}</view>
+  </view>
+</template>
