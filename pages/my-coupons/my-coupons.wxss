@@ -5,6 +5,36 @@ page, .container {
   background-color: #f5f5f5;
 }
 
+.coupons-input{
+  background-color: #fff;
+  padding: 20rpx 20rpx 8rpx 20rpx;
+  border-radius: 5px;
+  border: 1px solid #f8b551;
+  margin: 40rpx auto 20rpx;
+  width: 85%;
+}
+.input{
+  border:1px solid #f8b551;
+  border-radius:3px;
+  padding:5px 10px;
+  margin-bottom:10px;
+  font-size:30rpx;
+  width:70%;
+  display:inline-block;
+}
+
+.primary {
+  background:linear-gradient(to right,#eb7073,#f4948a);
+  font-size:28rpx;
+  border-radius:4px;
+  color:#fff;
+  text-align:center;
+  width:20%;
+  display:inline-block;
+  float:right;
+  height:33px;
+  line-height:33px;
+}
 .coupons-list {
   width: 92%;
   padding-top: 10px;
@@ -22,17 +52,17 @@ page, .container {
   position: relative;
 }
 
-.money-left {
-  width: 120px;
+.money-left{
+  width: 190rpx;
   font-size: 60rpx;
-  margin: 16px 0px;
-  display: inline-block;
+  float: left;
   text-align: center;
+  height: 70rpx;
+  line-height: 70px;
 }
-
-.money-left text {
-  font-size: 28rpx;
-  padding-left: 6px;
+.money-left text{
+  font-size:28rpx;
+  padding-left:6px;
 }
 
 .money-right {

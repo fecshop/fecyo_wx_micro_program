@@ -72,6 +72,10 @@
       <view>{{language.my_service}}</view>
       <button open-type="contact" session-from="weapp"></button>
     </view>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/my-coupons/my-coupons">
+      <image src="../../images/jifen.png"></image>
+      <view>{{language.my_coupons}}</view>
+    </navigator>
   </view>
   <view class="userinfo-info" wx:if="{{logged}}">
     {{getInfo}}

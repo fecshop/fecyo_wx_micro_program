@@ -42,6 +42,12 @@
     {{selectSize}}
     <image src="../../images/arrow-right.png"></image>
   </view>
+
+  <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTapCoupon" data-product_id="{{goodsDetail._id}}">
+    <i class="promotion-icon">券</i><span>领取优惠券</span>
+    <image src="../../images/arrow-right.png"></image>
+  </view>
+
   <view class="tab-header" bindtap="tabFun">
     <view class="{{tabArr.curHdIndex=='0'? 'active' : ''}}" id="tab-hd01" data-id="0">{{language.product_description}}</view>
     <view class="{{tabArr.curHdIndex=='1'? 'active' : ''}}" id="tab-hd02" data-id="1">{{language.product_review}}</view>
@@ -64,12 +70,13 @@
       <view class="reputation-none" wx:if="{{!goodsDetail.productReview.coll || goodsDetail.productReview.coll.length == 0}}">
         <image src="../../images/empty_comment.png" /> {{language.product_no_review}}
       </view>
-      <view class="goods-reputa-list" wx:for="{{goodsDetail.productReview.coll && goodsDetail.productReview.coll.length > 0 }}" wx:key="id">
+      <view class="goods-reputa-list"  wx:if="{{goodsDetail.productReview.coll && goodsDetail.productReview.coll.length > 0 }}" wx:for="{{goodsDetail.productReview.coll}}"wx:key="id">
         
+
+
         <view class="goods-reputa-mark">
           <view class="goods-reputa-user">
-            {{item.name}}
-            <text>{{item.summary}}</text>
+            <text>{{item.rate_star == 5 ? "好评" :''}}{{(item.rate_star < 5 && item.rate_star < 1 )  ? "中评" :''}}{{item.rate_star == 1 ? "差评" :''}}</text>
           </view>
           <view class="goods-mark">{{item.review_content}}</view>
 
@@ -106,6 +113,35 @@
       </view>
     </view>
   </block>
+
+  <view class="show-popup" hidden="{{hideShopPopupCoupon}}">
+    <view class="popup-mask" bindtap="closePopupTapCoupon"></view>
+    <view class="popup-contents coupon_lists">
+      <view class="pop-goods-close" bindtap="closePopupTapCoupon"></view>
+
+      <view class="coupon-drawer-dialog">
+        <view class="title">领取优惠券</view>
+        <view class="body">
+            <ul class="coupon-list">
+              <li  wx:for-items="{{coupons}}" wx:key="{{index}}" class="coupon" >
+                <view class="pull-right">
+                  <button type="button" class="coupon-btn {{item.fetched == true ? '' : 'coupon-btn-valid'}} fetch_coupon"  bindtap="fetchCoupon" data-index="{{index}}" data-id="{{item.id}}" data-fetched="{{item.fetched}}">
+                    {{item.fetched == true ? '已领取' : '立即领取'}}
+                  </button>
+                </view>
+                <view class="coupon-intro">
+                  <view class="coupon-price">{{item.symbol}} {{item.discount_cost}}</view>
+                  <view class="coupon-desc">【{{item.name}}】满{{item.use_condition}}减{{item.discount_cost}}</view>
+                  <view class="coupon-time">使用期限: {{item.assign_begin_at}}-{{item.assign_end_at}}</view>
+                </view>
+              </li>          
+            </ul>
+        </view>
+     </view>
+
+    </view>
+  </view>
+
   <view class="show-popup" hidden="{{hideShopPopup}}">
     <view class="popup-mask" bindtap="closePopupTap"></view>
     <view class="popup-contents">

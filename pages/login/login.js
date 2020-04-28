@@ -8,9 +8,15 @@ Page({
     balance: 0,
     freeze: 0,
     score: 0,
+    sendTime: '获取验证码',
+    sendColor: '#363636',
+    snsMsgWait: 60,
+    smsFlag: false,
     loadAccount: 1,
     //语言 - begin
     language: '',
+    phone: '18661832866',
+    captcha: '',
     reRequestCount: 0,
     //语言 - end
     score_sign_continuous: 0,
@@ -70,9 +76,9 @@ Page({
         app.saveReponseHeader(res);
       }
     });
-
-
   },
+
+  
   wxLogin: function(){
     var that = this;
 
@@ -94,7 +100,6 @@ Page({
             code: res.code
           },
           success: function (res) {
-            wx.hideLoading();
             wx.hideLoading();
             app.saveReponseHeader(res);
 
@@ -164,60 +169,94 @@ Page({
     }
   },
 
-  bindNewSave: function (e) {
-    var that = this;
-    var email = e.detail.value.email;
-    var password = e.detail.value.password;
-    that.bindSave(email, password, 1)
-
-  },
-
-  bindHistorySave: function (e) {
-    var that = this;
-    var email = e.detail.value.email;
-    var password = e.detail.value.password;
-    that.bindSave(email, password, 2)
-  },
   // 判断邮箱格式
-  validateEmail : function (email) {
-    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-    return myreg.test(email)
+  validatePhone: function (phone) {
+    var myreg = /^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+    return myreg.test(phone)
   },
-  bindSave: function(email, password, isBindNew){
+  fetchCapthcha : function(e){
     var that = this;
-    if (email == "") {
+    var phone = that.data.phone;
+    wx.showLoading({
+      title: 'loading...',
+    })
+    wx.request({
+      url: app.globalData.urls + "/customer/register/phoneregistercaptchacode",  // "/user/wxapp/login",
+      header: app.getPostRequestHeader(),
+      method: 'POST',
+      data: {
+        phone: phone
+      },
+      success: function (res) {
+        wx.hideLoading();
+        app.saveReponseHeader(res);
+        if (res.data.code == '2000001') {  // 无法通过微信api获取信息
+          wx.showModal({
+            title: "提示",
+            content: "短信发送失败",
+            showCancel: false
+          });
+          return;
+        } else if (res.data.code == '200') { // 没有相关用户，需要绑定
+          that.sendCode();
+        }
+
+      }
+    });
+  },
+
+  // 获取验证码
+  sendCode: function () {
+    // 60秒后重新获取验证码
+    var inter = setInterval(function () {
+      this.setData({
+        smsFlag: true,
+        sendColor: '#cccccc',
+        sendTime: this.data.snsMsgWait + 's后重发',
+        snsMsgWait: this.data.snsMsgWait - 1
+      });
+      if (this.data.snsMsgWait < 0) {
+        clearInterval(inter)
+        this.setData({
+          sendColor: '#363636',
+          sendTime: '获取验证码',
+          snsMsgWait: 60,
+          smsFlag: false
+        });
+      }
+    }.bind(this), 1000);
+  },
+
+  
+  bindSave: function(e){
+    var that = this;
+    var phone = e.detail.value.phone;
+    var captcha = e.detail.value.captcha;
+    if (phone == "") {
       wx.showModal({
         title: '提示',
-        content: 'email_can_not_empty',
+        content: 'phone_can_not_empty',
         showCancel: false
       })
       return
     }
-    if (!that.validateEmail(email)){
+    if (!that.validatePhone(phone)){
       wx.showModal({
         title: '提示',
-        content: '邮箱格式不正确',
+        content: '手机格式不正确',
         showCancel: false
       })
       return
     }
-    if (password == "") {
+    if (captcha == "") {
       wx.showModal({
         title: '提示',
-        content: 'password_can_not_empty',
+        content: 'captcha_can_not_empty',
         showCancel: false
       })
       return
     }
     
-    if (password.length < 6) {
-      wx.showModal({
-        title: '提示',
-        content: '密码必须大于6',
-        showCancel: false
-      })
-      return
-    }
     wx.showLoading({
       title: 'loading...',
     })
@@ -229,9 +268,8 @@ Page({
           header: app.getPostRequestHeader(),
           method: 'POST',
           data: {
-            email: email,
-            password: password,
-            isBindNew: isBindNew,
+            phone: phone,
+            captcha: captcha,
             code: res.code
           },
           success: function (res) {

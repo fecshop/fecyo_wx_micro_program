@@ -473,6 +473,7 @@ swiper-item image {
   left: 0;
   bottom: 0;
   width: 100%;
+  min-height: 60%;
   background-color: #fff;
   z-index: 6;
 }
@@ -520,8 +521,14 @@ swiper-item image {
   background: url("https://cdn.it120.cc/images/weappshop/popup-close.png") no-repeat center center;
   background-size: 36rpx auto;
   align-self: flex-start;
-  margin-top: -10rpx;
+  margin-top: 20rpx;
+  right: 0rpx;
+  margin-right: 50rpx;
+  position: absolute;
+
 }
+
+
 
 .size-label-box  .label {
   font-size: 26rpx;
@@ -637,7 +644,7 @@ swiper-item image {
   background-color: #b5272d;
   color: #fff;
   font-size: 24rpx;
-  margin-left: 10px;
+  
   padding: 0 5px;
   border-radius: 8rpx;
 }
@@ -691,6 +698,8 @@ swiper-item image {
 .tab-container .tab-item {
   width: 100%;
   display: none;
+  min-height: 500rpx;
+
 }
 
 .tab-container .tab-item.active {
@@ -970,4 +979,108 @@ swiper-item image {
   line-height: 80rpx;
   font-size: 32rpx;
 }
+
+
+.promotion-icon {
+    line-height: .9rem;
+    background-color: #d0021b;
+    color: #fff;
+    padding: 5rpx 8rpx;
+    border-radius: 5rpx;
+    margin-right: 10rpx;
+    font-size: 25rpx;
+    float: left;
+    margin-top: 26rpx;
+
+}
+
+
+
+
+
+.coupon-drawer-dialog .title {
+    text-align: center;
+    font-size: .7rem;
+    line-height: 2.2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.coupon-drawer-dialog .body {
+    border-bottom: .5rem solid #fff;
+    overflow: auto;
+    padding:5rpx 20rpx;
+}
+
+
+.coupon-drawer-dialog .coupon {
+    min-height: 4.125rem;
+    margin-left: .75rem;
+    margin-right: .75rem;
+    padding-top: .75rem;
+    padding-bottom: .375rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.pull-right {
+    float: right;
+}
+
+
+.coupon-drawer-dialog .coupon-btn {
+  min-width: 150.25rpx;
+  height: 60rpx;
+  font-size: 25rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-top: 80rpx;
+  padding: 0;
+  color: #b0b0b0;
+  border: 1rpx solid #b0b0b0;
+  
+
+}
+.coupon-drawer-dialog body{
+  padding: 10rpx 30rpx;
+
+
+}
+
+.coupon-drawer-dialog .coupon-btn-valid {
+    color: #d0021b;
+    border-color: #d0021b;
+}
+
+.coupon-drawer-dialog .coupon-intro {
+    overflow: hidden;
+    padding-right: 20rpx;
+}
+
+
+.coupon-drawer-dialog .coupon-price {
+    font-size: 40rpx;
+    line-height: 1;
+    color: #d0021b;
+}
+.coupon-drawer-dialog .coupon-desc {
+    font-size: 30rpx;
+    color: #444;
+}
+.coupon-drawer-dialog .coupon-time {
+    font-size: 25rpx;
+    color: #b0b0b0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

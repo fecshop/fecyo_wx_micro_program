@@ -12,6 +12,7 @@ Page({
     interval: 10000,
     duration: 500,
     goodsDetail: {},
+    coupons:[],
     swiperCurrent: 0,
     hasMoreSelect: false,
     selectSize: "",
@@ -21,6 +22,7 @@ Page({
     language: '',
     //语言 - end
     hideShopPopup: true,
+    hideShopPopupCoupon: true,
     buyNumber: 0,
     buyNumMin: 1,
     buyNumMax: 50,
@@ -181,6 +183,7 @@ Page({
         
         that.setData({
           goodsDetail: res.data.data.product,
+          //coupons: res.data.data.coupons,
           selectSizePrice: res.data.data.product.price_info.special_price ? res.data.data.product.price_info.special_price:0,
           buyNumber: 1,  //(res.data.data.basicInfo.stores > 0) ? 1 : 0,
         });
@@ -216,12 +219,90 @@ Page({
       hideShopPopup: false
     })
   },
+  fetchCoupon: function (e) {
+    var self = this;
+    var fetched = e.currentTarget.dataset.fetched;
+    var coupon_index = e.currentTarget.dataset.id;
+    console.log(fetched)
+    if (fetched == 'true' || fetched == true) {
+      console.log(fetched)
+      return;
+    }
+    wx.showLoading({
+      title: 'loading...',
+    })
+    var requestHeader = app.getRequestHeader();
+    requestHeader['Content-Type'] = 'application/x-www-form-urlencoded';
+    wx.request({
+      url: app.globalData.urls + '/coupon/fetch/customer',
+      header: requestHeader,
+      data: {
+        coupon_id: e.currentTarget.dataset.id
+      },
+      method: 'POST',
+      success: function (res) {
+        wx.hideLoading();
+        if (res.data.code == 1100003) {
+          wx.navigateTo({
+            url: "/pages/login/login"
+          })
+          return
+        } else if (res.data.code == 2000003) {
+          wx.showModal({
+            title: '错误',
+            content: '优惠券领取失败',
+            showCancel: false
+          })
+          return;
+        } else if (res.data.code == 200) {
+          app.saveReponseHeader(res)
+          self.bindGuiGeTapCoupon()
+          wx.showToast({
+            title: '优惠券领取成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+
+
+      }
+    })
+  },
+  /**
+   * 规格选择弹出框
+   */
+  bindGuiGeTapCoupon: function () {
+    //var product_id = e.currentTarget.dataset.product_id;
+    var self = this
+    wx.showLoading({
+      title: 'loading...',
+    })
+    wx.request({
+      url: app.globalData.urls + '/catalog/product/coupons',  // '/shop/goods/detail',
+      header: app.getRequestHeader(),
+      data: {
+        product_id: self.data.id
+      },
+      success: function (res) {
+        self.setData({
+          hideShopPopupCoupon: false,
+          coupons: res.data.data.coupons
+        })
+      }
+    });
+    wx.hideLoading();
+  },
   /**
    * 规格选择弹出框隐藏
    */
   closePopupTap: function () {
     this.setData({
       hideShopPopup: true
+    })
+  },
+  closePopupTapCoupon: function () {
+    this.setData({
+      hideShopPopupCoupon: true
     })
   },
   numJianTap: function () {

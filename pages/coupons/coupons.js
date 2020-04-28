@@ -4,50 +4,43 @@ var app = getApp()
 Page({
   data: {
     coupons: '',
+    coupon_code: '',
     busid: 0
   },
 
   listenerCouponsInput: function (e) {
-    this.data.coupons = e.detail.value;
-    this.data.id = e.currentTarget.dataset.id;
+    this.data.coupon_code = e.detail.value;
   },
   listenerDuiHuan: function () {
+    var self = this
+    var requestHeader = app.getRequestHeader();
+    requestHeader['Content-Type'] = 'application/x-www-form-urlencoded';
     wx.request({
-      url: app.globalData.urls + '/discounts/fetch',
+      url: app.globalData.urls + '/coupon/fetch/customerexchange',
       data: {
-        // id: this.data.busid,
-        pwd: this.data.coupons,
-        token: app.globalData.token
+        coupon_code: this.data.coupon_code,
       },
+      method: 'POST',
+      header: requestHeader,
       success: function (res) {
 				console.log(res)
-        if (res.data.code == 0) {
+        if (res.data.code == 200) {
+          app.saveReponseHeader(res);
+          self.getCoupons()
           wx.showToast({
-            title: '礼券兑换成功',
+            title: '优惠券领取成功',
             icon: 'success',
             duration: 2000
           })
-        }
-        if (res.data.code == 20001 || res.data.code == 20002) {
-          wx.showModal({
-            title: '兑换失败',
-            content: '礼券已经兑换完了',
-            showCancel: false
+          return
+        } else if (res.data.code == '1100003') {
+          wx.navigateTo({
+            url: "/pages/login/login"
           })
-          return;
-        }
-        if (res.data.code == 20003) {
+        } else {
           wx.showModal({
             title: '兑换失败',
-            content: '兑换数量已达最大上限',
-            showCancel: false
-          })
-          return;
-        }
-        if (res.data.code == 20000) {
-          wx.showModal({
-            title: '兑换失败',
-            content: '输入的口令有误，请重新输入',
+            content: '优惠券码兑换失败',
             showCancel: false
           })
           return;
@@ -56,97 +49,71 @@ Page({
     })
   },
   onLoad: function () {
-    var that = this
-    if (app.globalData.iphone == true) { that.setData({ iphone: 'iphone' }) }
-    that.getCoupons();
-    wx.request({
-      url: app.globalData.urls + '/banner/list',
-      data: {
-        key: 'mallName',
-        type: 'duihuan'
-      },
-      success: function (res) {
-        if (res.data.code == 0 && app.globalData.system != 'key') {
-          that.setData({
-            banners: res.data.data,
-            busid: res.data.data[0].businessId
-          });
-        }
-      }
-    })
+    this.getCoupons()
   },
+  
   getCoupons: function () {
-    var that = this;
+    var self = this
     wx.request({
-      url: app.globalData.urls + '/discounts/coupons',
-      data: {
-        type: 'shop'
-      },
+      url: app.globalData.urls + '/coupon/fetch/lists',
+      data: {},
+      header: app.getRequestHeader(),
       success: function (res) {
-				console.log(res)
-        if (res.data.code == 0) {
-          that.setData({
-            hasNoCoupons: false,
-            coupons: res.data.data
+        if (res.data.code == '200') {
+          self.setData({
+            coupons: res.data.data.coupons,
           });
+        } else if (res.data.code == '1100003') {
+          wx.navigateTo({
+            url: "/pages/login/login"
+          })
         }
       }
     })
   },
-  gitCoupon: function (e) {
-    var that = this;
+  fetchCoupon: function (e) {
+    var self = this;
+    var fetched = e.currentTarget.dataset.fetched;
+    var coupon_index = e.currentTarget.dataset.index;
+    if (fetched == 'true') {
+      return;
+    }
+    wx.showLoading({
+      title: 'loading...',
+    })
+    var requestHeader = app.getRequestHeader();
+    requestHeader['Content-Type'] = 'application/x-www-form-urlencoded';
     wx.request({
-      url: app.globalData.urls + '/discounts/fetch',
+      url: app.globalData.urls + '/coupon/fetch/customer',
+      header: requestHeader,
       data: {
-        id: e.currentTarget.dataset.id,
-        token: app.globalData.token
+        coupon_id: e.currentTarget.dataset.id
       },
+      method: 'POST',
       success: function (res) {
-        if (res.data.code == 20001 || res.data.code == 20002) {
+        wx.hideLoading();
+        if (res.data.code == 1100003) {
+          wx.navigateTo({
+            url: "/pages/my/my"
+          })
+        } else if (res.data.code == 2000003) {
           wx.showModal({
             title: '错误',
-            content: '礼券已经领完了',
+            content: '优惠券领取失败',
             showCancel: false
           })
           return;
-        }
-        if (res.data.code == 20003) {
-          wx.showModal({
-            title: '错误',
-            content: '您已经领过了',
-            showCancel: false
-          })
-          return;
-        }
-        if (res.data.code == 30001) {
-          wx.showModal({
-            title: '错误',
-            content: '您的积分不足',
-            showCancel: false
-          })
-          return;
-        }
-        if (res.data.code == 20004) {
-          wx.showModal({
-            title: '错误',
-            content: '礼券已经过期',
-            showCancel: false
-          })
-          return;
-        }
-        if (res.data.code == 0) {
+        } else if (res.data.code == 200) {
+          app.saveReponseHeader(res);
+          self.getCoupons()
           wx.showToast({
-            title: '礼券领取成功',
+            title: '优惠券领取成功',
             icon: 'success',
             duration: 2000
           })
-        } else {
-          wx.showModal({
-            title: '错误',
-            content: res.data.msg,
-            showCancel: false
-          })
         }
+        
+        
       }
     })
   }

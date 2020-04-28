@@ -1,19 +1,25 @@
-<navigation id='Navigation' show-icon="{{true}}" title="我的礼券" show-title="{{true}}" class=""></navigation>
+<navigation id='Navigation' show-icon="{{true}}" title="我的优惠券" show-title="{{true}}" class=""></navigation>
 <view class="container">
+  <view class="coupons-bg" >
+    
+    <view class="coupons-input">
+      <input class="input" type="text" placeholder="请输入礼券码" placeholder-style="color: #f8b551" bindinput="listenerCouponsInput"  />
+      <view class="primary" bindtap="listenerDuiHuan">兑 换</view>
+    </view>
+  </view>
   <view class="coupons-list">
     <view class="coupons-item" wx:for-items="{{coupons}}" wx:key="id" bindtap="gitCoupon" data-id="{{item.id}}">
-      <view class="money-left">{{item.money}}
-        <text>元</text>
+      <view class="coupons-item-box">
+        <view class="money-left">{{item.discount_cost}}
+        </view>
+        <view class="money-right">
+          <view class="money-name">{{item.name}}</view>
+          <view class="money-hold">满{{item.use_condition}}元使用</view>
+        </view>
+        <view class="money-home" bindtap="gohome" >去使用</view>
       </view>
-      <view class="money-right">
-        <view class="money-name">{{item.name}}</view>
-        <view class="money-hold">满{{item.moneyHreshold}}元使用</view>
-      </view>
-      <view bindtap="gohome" class="money-home">去使用</view>
       <view class="money-line"></view>
-      <view class="money-fooder">
-        {{item.dateEnd}}前有效
-      </view>
+      <view class="money-fooder" >{{item.active_begin_at}} - {{item.active_end_at}}</view>
     </view>
   </view>
   <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">

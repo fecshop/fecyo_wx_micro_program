@@ -366,3 +366,26 @@ picker {
 .tab-container .tab-item.active {
   display: block;
 }
+.fetch_captcha{
+  float: right;
+font-size: 12px;
+height: 70rpx;
+line-height: 70rpx;
+margin-top: 10rpx;
+
+}
+.captch_text{
+  width: 200rpx;
+display: inline-block;
+
+}
+
+
+
+
+
+
+
+
+
+

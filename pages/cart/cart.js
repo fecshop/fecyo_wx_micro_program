@@ -102,7 +102,12 @@ Page({
       },
       header: app.getRequestHeader(),
       success: function (res) {
-        if (res.data.code == '200') {
+        if (res.data.code == '1100003') {
+          wx.navigateTo({
+            url: "/pages/login/login"
+          })
+          return
+        } else if (res.data.code == '200') {
           var cart_info = res.data.data.cart_info;
           var currency = res.data.data.currency;
           var goodsList = {

@@ -1,0 +1,57 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.order_review_info}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="sec-wrap">
+    
+  </view>
+  <view class="goods-list">
+    <view class="list-title">{{language.product_info}}</view>
+    <form  report-submit="true" bindsubmit="submitReputation">  <!--bindsubmit="submitReputation"  -->
+      <block wx:for-items="{{orderDetail.goods}}" wx:key="{{index}}">
+        <view class="a-goods">
+          <view class="img-box">
+            <image src="{{item.pic}}" class="img" />
+          </view>
+          <view class="text-box">
+            <view class="arow arow01">
+              <view class="goods-name">{{item.goodsName}}</view>
+              <view class="goods-price">{{orderDetail.symbol}} {{item.amount}}</view>
+            </view>
+            <view class="arow">
+              <view class="goods-label">{{item.property}}</view>
+              <view class="goods-num">x {{item.number}}</view>
+            </view>
+          </view>
+        </view>
+        
+        <view class="btn-row" >
+          <view class="section section_gap">
+            <view style="margin-top:35rpx;margin-bottom:35rpx;">评星：</view>
+            <radio-group name="goodReputation{{index}}">
+              <label style="margin-right:35rpx;">
+                <radio value="5" checked/>好评</label>
+              <label style="margin-right:35rpx;">
+                <radio value="3" />中评</label>
+              <label style="margin-right:35rpx;">
+                <radio value="1" />差评</label>
+            </radio-group>
+          </view>
+          
+          <view class="row-box" style="margin-top:35rpx">
+            <view class="row-label">评价:</view>
+            <input name="orderGoodsId{{index}}" value="{{item.product_id}}" style="display:none;" />
+            <input name="orderItemId{{index}}" value="{{item.item_id}}" style="display:none;" />
+            <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="" />
+          </view>
+        </view>
+      </block>
+      
+      <view class="btn-row" >
+        <button class="confirm-btn" formType="submit">提交评价</button>
+      </view>
+      
+    </form>
+    
+  </view>
+  
+ 
+</view>

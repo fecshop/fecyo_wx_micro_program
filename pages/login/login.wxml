@@ -22,24 +22,23 @@
     <navigator url="/pages/order-list/order-list" hover-class="none">{{language.bind_your_account}}</navigator>
   </view>
   -->
-  <view class="tab-header" bindtap="tabFun">
-    <view class="{{tabArr.curHdIndex=='0'? 'active' : ''}}" id="tab-hd01" data-id="0">{{language.create_account}}</view>
-    <view class="{{tabArr.curHdIndex=='1'? 'active' : ''}}" id="tab-hd02" data-id="1">{{language.has_account}}</view>
-  </view>
+  <view class="{{tabArr.curHdIndex=='0'? 'active' : ''}}" id="tab-hd01" data-id="0">{{language.bind_phone}}</view>
   <view class="tab-container">
-    <view class="tab-item {{tabArr.curBdIndex=='0'? 'active' : ''}}">
-      <form bindsubmit="bindNewSave">
+    <view class="tab-item active">
+      <form bindsubmit="bindSave">
         <view class="form-box">
           <view class="row-wrap">
-            <view class="label">{{language.email}}</view>
+            <view class="label">{{language.phone}}</view>
             <view class="label-right">
-              <input name="email" class="input" type="email" placeholder="Email" value="{{email}}" />
+              <input name="phone" class="input" type="phone" placeholder="Phone" value="{{phone}}" />
             </view>
           </view>
           <view class="row-wrap">
-            <view class="label">{{language.password}}</view>
+            <view class="label">{{language.captcha}}</view>
             <view class="label-right">
-              <input name="password" class="input" type="password" placeholder="password" value="{{password}}" />
+              <input class="captch_text input" name="captcha"  type="text" placeholder="captcha" value="{{captcha}}" />
+              <button class="fetch_captcha" bindtap="fetchCapthcha" disabled="{{smsFlag}}" style='color:{{sendColor}};'>{{sendTime}}</button>
+
             </view>
           </view>
           
@@ -48,30 +47,7 @@
         
       </form>
     </view>
-    <view class="tab-item {{tabArr.curBdIndex=='1'? 'active' : ''}}">
-      <form bindsubmit="bindHistorySave">
-        <view class="form-box">
-          <view class="row-wrap">
-            <view class="label">{{language.email}}</view>
-            <view class="label-right">
-              <input name="email" class="input" type="email" placeholder="Email" value="{{email}}" />
-            </view>
-          </view>
-          <view class="row-wrap">
-            <view class="label">{{language.password}}</view>
-            <view class="label-right">
-              <input name="password" class="input" type="password" placeholder="password" value="{{password}}" />
-            </view>
-          </view>
-          
-        </view>
-        <button type="warn" class="save-btn" formType="submit">{{language.bind_account}}</button>
-        
-      </form>
-    </view>
+    
   </view>
-
-
-
   
 </view>

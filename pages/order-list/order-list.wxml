@@ -32,15 +32,29 @@
       <view class="price-box">
         <view class="total-price">{{language.grand_total}}：{{item.currency_symbol}} {{item.amountReal}}</view>
 				<view class="btn-box">
-					<view class="btn cancel-btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">{{language.order_cancel_2}}</view>
+					
+
+          <view class="btn cancel-btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">{{language.order_cancel_2}}</view>
 					<view class="btn topay-btn" hidden="{{item.status==0? false: true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}">{{language.order_now_pay}}</view>
 					<!--<view class="btn topay-btn" hidden="{{item.status==3? false: true}}" bindtap="orderDetail" data-id="{{item.id}}">去评价</view>-->
-					<form bindsubmit="toConfirmTap" report-submit="true" data-id="{{item.id}}">
-					  <view wx:if="{{item.status==2}}">
-					    <button class="btn topay-btn" formType="submit">{{language.confirm_receipt}}</button>
-					  </view>
-					</form>
+
+          <view class="btn topay-btn" hidden="{{item.status==3? false: true}}" bindtap="orderRecevie" data-increment_id="{{item.orderNumber}}" >{{language.order_receive}}</view>
+          
+          <view class="btn topay-btn" hidden="{{item.status==3? false: true}}" bindtap="viewShipping" data-increment_id="{{item.orderNumber}}" >{{language.view_shipping}}</view>
+          <view class="btn topay-btn" hidden="{{item.status==4? false: true}}" bindtap="viewShipping" data-increment_id="{{item.orderNumber}}" >{{language.view_shipping}}</view>
 				</view>
+      </view>
+      <view class="price-box">
+        <view class="total-price"></view>
+        <view class="btn-box">
+          
+          <view class="btn topay-btn" hidden="{{ (item.is_reviewed==2 &&  item.status==4)? false: true}}" bindtap="orderReview" data-id="{{item.id}}"  >{{language.order_review}}</view>
+          <view class="btn topay-btn" hidden="{{item.status==4? false: true}}" bindtap="reOrder" data-increment_id="{{item.orderNumber}}" >{{language.can_reorder}}</view>
+          <view class="btn topay-btn" hidden="{{item.status==4? false: true}}" bindtap="afterSale" data-id="{{item.id}}" >{{language.order_after_sale}}</view>
+
+          
+
+        </view>
       </view>
     </view>
   </view>

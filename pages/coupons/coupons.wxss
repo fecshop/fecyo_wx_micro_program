@@ -3,17 +3,15 @@ page,.container {
 }
 .coupons-bg,.coupons-image{
   width:100%;
-  height:400rpx;
+  height:160rpx;
 }
 .coupons-input{
-  background-color:#fff;
-  position:absolute;
-  width:80%;
-  padding:20px 20px 8px 20px;
-  top:160px;
-  left:5%;
-  border-radius:5px;
-  border:1px solid #f8b551;
+  background-color: #fff;
+  padding: 20rpx 20rpx 8rpx 20rpx;
+  border-radius: 5px;
+  border: 1px solid #f8b551;
+  margin: 40rpx auto 20rpx;
+  width: 85%;
 }
 .input{
   border:1px solid #f8b551;
@@ -40,7 +38,7 @@ page,.container {
 .coupons-list{
   width:92%;
   margin: 0 auto;
-  margin-top:120rpx;
+  margin-top:20rpx;
 }
 .coupons-item{
   color:#fff;
@@ -53,15 +51,15 @@ page,.container {
 }
 .coupons-item-box{
   width:100%;
-  height:80px;
+  height:120rpx;
 }
 .money-left{
-  width:90px;
-  font-size:60rpx;
-  float:left;
-  text-align:center;
-  height:70px;
-  line-height:70px;
+  width: 190rpx;
+  font-size: 60rpx;
+  float: left;
+  text-align: center;
+  height: 70rpx;
+  line-height: 70px;
 }
 .money-left text{
   font-size:28rpx;

@@ -219,3 +219,236 @@ form {
   color: #b5272d;
   text-align: right;
 }
+
+.row-arrow {
+  background-color: #fff;
+  width: 100%;
+  font-size: 26rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding-left:15rpx;
+  color: #333;
+  border-bottom: 30rpx solid #f5f5f5;
+}
+
+.row-arrow image {
+  width: 20rpx;
+  height: 42rpx;
+  float: right;
+  margin-right: 30rpx;
+  margin-top: 24rpx;
+}
+
+
+.promotion-icon {
+    line-height: .9rem;
+    background-color: #d0021b;
+    color: #fff;
+    padding: 5rpx 8rpx;
+    border-radius: 5rpx;
+    margin-right: 10rpx;
+    font-size: 25rpx;
+    float: left;
+    margin-top: 26rpx;
+
+}
+
+
+.show-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999999;
+}
+
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.popup-contents {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 60%;
+  background-color: #fff;
+  z-index: 6;
+}
+
+.pop-goods-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 30rpx;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.pop-img-box {
+  width: 120rpx;
+  height: 120rpx;
+  overflow: hidden;
+  margin-right: 26rpx;
+}
+
+.pop-img-box .goods-thumbnail {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.pop-goods-title {
+  width: 484rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 26rpx;
+  color: #000;
+}
+
+.pop-goods-price {
+  font-size: 26rpx;
+  color: #b5272d;
+  margin-top: 20rpx;
+}
+
+.pop-goods-close {
+  width: 36rpx;
+  height: 36rpx;
+  flex: 1;
+  background: url("https://cdn.it120.cc/images/weappshop/popup-close.png") no-repeat center center;
+  background-size: 36rpx auto;
+  align-self: flex-start;
+  margin-top: 20rpx;
+  right: 0rpx;
+  margin-right: 50rpx;
+  position: absolute;
+
+}
+
+
+.coupon-drawer-dialog .title {
+    text-align: center;
+    font-size: .7rem;
+    line-height: 2.2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.coupon-drawer-dialog .body {
+    height: 13.5rem;
+    border-bottom: .5rem solid #fff;
+    overflow: auto;
+    padding:5rpx 20rpx;
+}
+
+
+.coupon-drawer-dialog .coupon {
+    min-height: 20rpx;
+    margin-left: 10rpx;
+    margin-right: 10rpx;
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.pull-right {
+    float: right;
+}
+
+
+.coupon-drawer-dialog .coupon-btn {
+  min-width: 150.25rpx;
+  height: 60rpx;
+  font-size: 25rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-top: 80rpx;
+  padding: 0;
+  color: #b0b0b0;
+  border: 1rpx solid #b0b0b0;
+  
+
+}
+.coupon-drawer-dialog body{
+  padding: 10rpx 30rpx;
+
+
+}
+
+.coupon-drawer-dialog .coupon-btn-valid {
+    color: #d0021b;
+    border-color: #d0021b;
+}
+
+.coupon-drawer-dialog .coupon-intro {
+    overflow: hidden;
+    padding-right: 20rpx;
+}
+
+
+.coupon-drawer-dialog .coupon-price {
+    font-size: 40rpx;
+    line-height: 1;
+    color: #d0021b;
+}
+.coupon-drawer-dialog .coupon-desc {
+    font-size: 30rpx;
+    color: #444;
+}
+.coupon-drawer-dialog .coupon-time {
+    font-size: 25rpx;
+    color: #b0b0b0;
+}
+
+
+.tab-header {
+  width: 100%;
+  padding-top: 10px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.tab-header view {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  font-size: 30rpx;
+  color: #999;
+  height: 30px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.tab-header .active {
+  color: #b4282d;
+  border-bottom: 2rpx solid #b4282d;
+}
+
+.tab-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tab-container .tab-item {
+  width: 100%;
+  display: none;
+}
+
+.tab-container .tab-item.active {
+  display: block;
+}
+.coupon_select_img{
+  width: 56rpx;
+  height: 40rpx;
+  margin-top: 70rpx;
+  display:none;
+}
+.coupon_select_img.active{display:block;}

@@ -1,5 +1,5 @@
 <navigation id='Navigation' show-icon="{{true}}" title="{{language.confirm_order}}" show-title="{{true}}" class=""></navigation>
-<view class="container">
+ <view class="container">
      <form bindsubmit="createOrder" report-submit="true">
      <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
         <view class="add-address" hidden="{{curAddressData}}">
@@ -50,16 +50,11 @@
             </view>
         </view>
       </view>
-      <view class="peisong-way" >
-        <view class="row-box" style="border-bottom:none;">
-            <view class="row-label">{{language.use_coupon}}</view>
-        </view>
-        <view class="row-box" style="border-bottom:none;">
-          <input bindinput="couponCodeSet" type="text" style="border-bottom:1px solid #ddd" value="{{curCoupon}}" />
-          <button wx:if="{{hasNoCoupons}}" bindtap="addCoupon" style="line-height:60rpx;font-size:30rpx;">{{language.add_coupon}}</button> 
-          <button wx:if="{{!hasNoCoupons}}" bindtap="cancelCoupon" style="line-height:60rpx;font-size:30rpx;">{{language.cancel_coupon}}</button> 
-        </view>
-     </view>
+      
+      <view  class="row-arrow" bindtap="bindGuiGeTapCoupon" data-product_id="">
+        <i class="promotion-icon">优惠券</i><span>{{coupon_available.length}}张可用， -{{cartSymbol}}{{coupon_cost}}</span>
+        <image src="../../images/arrow-right.png"></image>
+      </view>
      <view class="goods-info">
         <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">{{language.subtotal}}</view>
@@ -71,9 +66,63 @@
         </view>
         <view class="row-box" wx:if="{{!hasNoCoupons}}">
             <view class="row-label">{{language.coupon}}</view>
-            <view class="right-text">- {{cartSymbol}} {{youhuijine}}</view>
+            <view class="right-text">- {{cartSymbol}} {{discount_cost}}</view>
         </view>
      </view>
+
+     <view class="show-popup" hidden="{{hideShopPopupCoupon}}">
+      <view class="popup-mask" bindtap="closePopupTapCoupon"></view>
+      <view class="popup-contents coupon_lists">
+        <view class="coupon-drawer-dialog">
+          <view class="pop-goods-close" bindtap="closePopupTapCoupon"></view>
+
+          <view class="tab-header" bindtap="tabFun">
+            <view class="{{tabArr.curHdIndex=='0'? 'active' : ''}}" id="tab-hd01" data-id="0">可用优惠券</view>
+            <view class="{{tabArr.curHdIndex=='1'? 'active' : ''}}" id="tab-hd02" data-id="1">不可用优惠券</view>
+          </view>
+          <view class="tab-container">
+            <view class="tab-item {{tabArr.curBdIndex=='0'? 'active' : ''}}">
+              
+              <view class="body coupon_available">
+                <ul class="coupon-list">
+                  <li   wx:for-items="{{coupon_available}}" wx:key="{{index}}" class="coupon"  bindtap="changeCoupons" data-code="{{item.code}}">
+                    <view class="pull-right">
+                      <image class="coupon_select_img  {{item.coupon_id== coupon_selected.coupon_id ? 'active' : ''}}" src="../../images/addr-active.png" />
+                    </view>
+                    <view class="coupon-intro">
+                      <view class="coupon-price"> {{item.discount_cost}}</view>
+                      <view class="coupon-desc">【{{item.name}}】满{{item.use_condition}}减{{item.discount_cost}}</view>
+                      
+                    </view>
+                  </li>          
+                </ul>
+              </view>
+            </view>
+            <view class="tab-item {{tabArr.curBdIndex=='1'? 'active' : ''}}">
+              <view class="body coupon_unavailable">
+                <ul class="coupon-list">
+                  <li  wx:for-items="{{coupon_unavailable}}" wx:key="{{index}}" class="coupon" >
+                    <view class="coupon-intro">
+                      <view class="coupon-price"> {{item.discount_cost}}</view>
+                      <view class="coupon-desc">【{{item.name}}】满{{item.use_condition}}减{{item.discount_cost}}</view>
+                      
+                    </view>
+                  </li>          
+                </ul>
+             </view>
+            </view>
+          </view>
+
+          
+        
+        </view>
+      </view>
+    </view>
+
+
+
+
+
      <view class="jiesuan-box">
         <view class="left-price">
             <view class="total">{{language.grand_total}}：{{cartSymbol}} {{grandTotal}}</view>

@@ -6,6 +6,7 @@
     "pages/login/login",
     "pages/my/my",
     "pages/cart/cart",
+    "pages/wuliu/index",
     "pages/goods-detail/goods-detail",
     "pages/template-cart/template-cart",
     "pages/topic/topic",
@@ -26,7 +27,8 @@
     "pages/success/success",
     "pages/pay-order/pay-order",
     "pages/freshman/freshman",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/order-review/order-review"
   ],
   "window": {
     "navigationStyle": "custom",

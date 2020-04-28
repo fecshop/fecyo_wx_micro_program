@@ -132,10 +132,30 @@ export default {
     "remove_for_collection_success":"取消收藏",
     "save_success":"保存成功",
     "generating":"生成中...",
-    "load_user_information":"加载资料..."
+    "load_user_information":"加载资料...",
+    "phone":"手机",
+    "captcha": "验证码",
 
 
+    "captcha_can_not_empty":"手机验证码为空",
+    "my_coupons": "我的优惠券",
+    "payment_canceled": "支付取消",
+    "order_received":"已收货",
+    "waiting_delivered":"待发货",
+    "order_receive":"确认收货",
+    
+    "view_shipping":"查看物流",
+    "order_review": "评论",
+    "order_after_sale": "售后",
+    "can_reorder": "重新下单",
+    "order_payment_confirmed":"已支付",
+    "is_sure_receive_order":"确定要确认收货吗？",
+    "customer_order_receive_fail":"订单确认收货失败",
+    "customer_order_reorder_fail":"重新下单失败",
+    "order_review_info":"订单评价",
 
+    "bind_phone":"绑定手机"
+    
     // "order_now_pay": "立即支付",
     // "order_now_pay": "立即支付",
     // "order_now_pay": "立即支付",
@@ -281,7 +301,8 @@ export default {
     "remove_for_collection_success":"Cancel collection",
     "save_success":"Save successfully",
     "generating":"Generating...",
-    "load_user_information":"Loading information..."
+    "load_user_information":"Loading information...",
+    "bind_phone": "绑定手机"
     // "search": "Search",
     
   }

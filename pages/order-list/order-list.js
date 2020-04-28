@@ -49,7 +49,7 @@ Page({
     this.setData({
       currentType: curType
     });
-    this.onShow();
+    //this.onShow();
   },
   orderDetail: function (e) {
     var orderId = e.currentTarget.dataset.id;
@@ -90,6 +90,87 @@ Page({
     var money = e.currentTarget.dataset.money;
     wxpay.wxpay(app, money, orderId, "/pages/order-list/order-list?currentType=1&share=1");
   },
+  orderRecevie: function (e) {
+    var that = this;
+    var order_increment_id = e.currentTarget.dataset.increment_id;
+    wx.showModal({
+      title: that.data.language.is_sure_receive_order, //'确定要取消该订单吗？',  // Are you sure you want to cancel the order?
+      content: '',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading();
+          wx.request({
+            url: app.globalData.urls + '/customer/order/receive',
+            data: {
+              order_increment_id: order_increment_id
+            },
+            header: app.getRequestHeader(),
+            success: (res) => {
+              wx.hideLoading();
+              if (res.data.code == 200) {
+                that.onShow();
+              } else {
+                wx.showModal({
+                  title: that.data.language.warning, //'友情提示',
+                  content: that.data.language.customer_order_receive_fail, //'添加优惠券失败',
+                  showCancel: false
+                })
+              }
+              app.saveReponseHeader(res);
+            }
+          })
+        }
+      }
+    })
+  },
+  viewShipping: function (e) {
+    var that = this;
+    var increment_id = e.currentTarget.dataset.increment_id;
+    //console.log("increment_id")
+    //console.log(increment_id)
+    wx.navigateTo({
+      url: "/pages/wuliu/index?order_increment_id=" + increment_id
+    })
+  },
+  orderReview: function (e) {
+    var orderId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "/pages/order-review/order-review?id=" + orderId + '&share=1'
+    })
+  },
+  afterSale: function (e) {
+    var that = this;
+    var orderId = e.currentTarget.dataset.id;
+  },
+  reOrder: function (e) {
+    var that = this;
+    var order_increment_id = e.currentTarget.dataset.increment_id;
+
+    wx.showLoading();
+    wx.request({
+      url: app.globalData.urls + '/customer/order/reorder',
+      data: {
+        order_increment_id: order_increment_id
+      },
+      header: app.getRequestHeader(),
+      success: (res) => {
+        wx.hideLoading();
+        if (res.data.code == 200) {
+          wx.switchTab({
+            url: "/pages/cart/cart"
+          })
+        } else {
+          wx.showModal({
+            title: that.data.language.warning, //'友情提示',
+            content: that.data.language.customer_order_reorder_fail, //'添加优惠券失败',
+            showCancel: false
+          })
+        }
+        app.saveReponseHeader(res);
+      }
+    })
+  },
+
   onLoad: function (e) {
     var that = this;
     if (e.share) {
@@ -246,24 +327,35 @@ Page({
               if (order_status == 'payment_pending' || order_status == 'payment_processing') {
                 statusStr = that.data.language.order_wait_pay  //'待支付'
                 status = 0
-              } else if (order_status == 'payment_confirmed') {
-                statusStr = that.data.language.order_wait_deliver   //'已支付待发货'
-                status = 1
-              } else if (order_status == 'payment_canceled') {
-                statusStr = that.data.language.canceled  //'已取消'
+              } else if (order_status == 'payment_canceled' ) {
+                statusStr = that.data.language.payment_canceled  //'已取消'
                 status = -1
+              } else if (order_status == 'canceled') {
+                statusStr = that.data.language.canceled  //'已取消'
+                status = -2
+              } else if (order_status == 'payment_confirmed') {
+                statusStr = that.data.language.order_payment_confirmed   //'已支付待审核'
+                status = 1
+              } else if (order_status == 'processing') {
+                statusStr = that.data.language.order_wait_deliver  //'待发货'
+                status = 2
+                
               } else if (order_status == 'dispatched') {
                 statusStr = that.data.language.pending_receipt  //'已发货待确认'
-                status = 2
+                status = 3
+              } else if (order_status == 'received') {
+                statusStr = that.data.language.order_received //'已收货'
+                status = 4
               } else if (order_status == 'completed') {
                 statusStr = that.data.language.order_complete //'已完成'
-                status = 3
+                status = 5
               } 
               orderListThis.push({
                 statusStr: statusStr,
                 id: order.increment_id,
                 status: status,
                 orderNumber: order.increment_id,
+                is_reviewed: order.is_reviewed,
                 dateAdd: order.created_at,
                 remark: order.remark,
                 amountReal: order.grand_total,

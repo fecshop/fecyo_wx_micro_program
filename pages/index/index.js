@@ -70,7 +70,8 @@ Page({
       success: function (res) {
         if (res.data.code == 200) {
           that.setData({
-            hot: res.data.data.hot
+            hot: res.data.data.hot,
+            sales: res.data.data.sales,
           });
           if (res.data.data.topgoods) {
             that.setData({
@@ -178,9 +179,16 @@ Page({
 	},
 	tapSales: function (e) {
 	  if (e.currentTarget.dataset.id != 0) {
-	    wx.navigateTo({
-	      url: e.currentTarget.dataset.id
-	    })
+      var urlKey = e.currentTarget.dataset.id
+      if (urlKey == "/pages/cate/cate") {
+        wx.switchTab({
+          url: e.currentTarget.dataset.id
+        })
+      } else {
+        wx.navigateTo({
+          url: e.currentTarget.dataset.id
+        })
+      }
 	  }
 	},
 	userlogin: function (e) {

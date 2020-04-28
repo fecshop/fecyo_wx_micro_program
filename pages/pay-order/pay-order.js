@@ -13,6 +13,7 @@ Page({
     cartSymbol: '',
     yunPrice: 0,
     grandTotal: 0,
+    
     goodsJsonStr: "",
     shippings: [],
     shippingMethods: [],
@@ -23,9 +24,20 @@ Page({
     language: '',
     //语言 - end
 
-    hasNoCoupons: true,
-    youhuijine: 0, //优惠券金额
-    curCoupon: null // 当前选择使用的优惠券
+    coupon_available:[],
+    coupon_cost:0,
+    coupon_selected:{},
+    coupon_unavailable:[],
+    discount_cost: 0,
+
+    //hasNoCoupons: true,
+    //youhuijine: 0, //优惠券金额
+    //curCoupon: null // 当前选择使用的优惠券
+    tabArr: {
+      curHdIndex: 0,
+      curBdIndex: 0
+    },
+    hideShopPopupCoupon: true,
   },
   onShow: function () {
     //console.log(this.data.orderType)
@@ -52,7 +64,27 @@ Page({
     });
     this.initCartInfo()
   },
-
+  tabFun: function (e) {
+    var _datasetId = e.target.dataset.id;
+    var _obj = {};
+    _obj.curHdIndex = _datasetId;
+    _obj.curBdIndex = _datasetId;
+    this.setData({
+      tabArr: _obj
+    });
+  },
+  closePopupTapCoupon: function () {
+    this.setData({
+      hideShopPopupCoupon: true
+    })
+  },
+  bindGuiGeTapCoupon: function () {
+    //var product_id = e.currentTarget.dataset.product_id;
+    var self = this
+    self.setData({
+      hideShopPopupCoupon: false
+    })
+  },
 
   onLoad: function (e) {
     //console.log(e)
@@ -107,7 +139,7 @@ Page({
       header: app.getRequestHeader(),
       success: function (res) {
         if (res.data.code == '200') {
-          var resAddress = res.data.data.cart_address
+          var resAddress = res.data.data.default_address
           if (resAddress.street1 && resAddress.telephone) {
             var curAddressData = {
               address: resAddress.street1,
@@ -167,19 +199,19 @@ Page({
               se++;
             }
           }
-          var hasNoCoupons = true
-          var youhuijine = 0
-          var curCoupon = ''
-          if (cart_info.coupon_code) {
-            hasNoCoupons = false;
-            youhuijine = cart_info.coupon_cost
-            curCoupon = cart_info.coupon_code
-          }
+          //ar hasNoCoupons = true
+          //var youhuijine = 0
+          //var curCoupon = ''
+          //if (cart_info.coupon_code) {
+          //  hasNoCoupons = false;
+          //  youhuijine = cart_info.coupon_cost
+          //  curCoupon = cart_info.coupon_code
+          //}
           console.log(shippings)
           that.setData({
-            hasNoCoupons: hasNoCoupons,
-            youhuijine: youhuijine, //优惠券金额
-            curCoupon: curCoupon, // 当前选择使用的优惠券
+            //hasNoCoupons: hasNoCoupons,
+            //youhuijine: youhuijine, //优惠券金额
+            //curCoupon: curCoupon, // 当前选择使用的优惠券
             shipping_method: shipping_method,
             allGoodsPrice: res.data.data.cart_info.product_total,
             shippingMethods: shippingMethods,
@@ -188,7 +220,11 @@ Page({
             yunPrice: res.data.data.cart_info.shipping_cost,
             shippingIndex: shippingIndex,
             shippings: shippings,
-            
+            coupon_available: res.data.data.cart_info.coupon_available,
+            coupon_cost: res.data.data.cart_info.coupon_cost,
+            coupon_selected: res.data.data.cart_info.coupon_selected,
+            coupon_unavailable: res.data.data.cart_info.coupon_unavailable,
+            discount_cost: res.data.data.cart_info.discount_cost,
             curAddressData: curAddressData,
             goodsList: goodsList
           })
@@ -287,7 +323,7 @@ Page({
   },
 
   // 
-  changeShipping(e) {
+  changeShipping: function (e) {
     var that = this
     let index = e.detail.value;
     // 设置当前的Picker的LangIndex
@@ -305,7 +341,74 @@ Page({
     })
     console.log(shipping_method)
     
-    that.initCartInfo()
+
+    wx.showLoading({
+      title: 'loading...',
+    })
+    wx.request({
+      url: app.globalData.urls + '/checkout/onepage/changeshippingmethod',  // '/shop/goods/detail',
+      header: app.getRequestHeader(),
+      data: {
+        shipping_method: shipping_method
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          app.saveReponseHeader(res)
+          that.initCartInfo()
+          wx.showToast({
+            title: '快递切换成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+      }
+    });
+    wx.hideLoading();
+  },
+  changeCoupons: function (e) {
+    var that = this;
+    var coupon_code = e.currentTarget.dataset.code;
+    wx.showLoading({
+      title: 'loading...',
+    })
+    var requestHeader = app.getRequestHeader();
+    requestHeader['Content-Type'] = 'application/x-www-form-urlencoded';
+    wx.request({
+      url: app.globalData.urls + '/checkout/onepage/changecoupon',
+      header: requestHeader,
+      data: {
+        coupon_code: coupon_code
+      },
+      //method: 'POST',
+      success: function (res) {
+        wx.hideLoading();
+        if (res.data.code == 1100003) {
+          wx.navigateTo({
+            url: "/pages/my/my"
+          })
+        } else if (res.data.code == 200) {
+          app.saveReponseHeader(res)
+          that.initCartInfo()
+          wx.showToast({
+            title: '优惠券切换成功',
+            icon: 'success',
+            duration: 2000
+          })
+          that.setData({
+            hideShopPopupCoupon: true
+          })
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: '优惠券切换失败',
+            showCancel: false
+          })
+          return;
+        }
+
+
+      }
+    })
   },
 
   /*

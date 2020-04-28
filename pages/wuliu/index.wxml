@@ -1,0 +1,34 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.order_list}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="top-sec">
+    <view class="a-row">
+        <view class="label">订单编号：</view>
+        <view class="text">{{order_increment_id}}</view>
+    </view>
+    <view class="a-row">
+        <view class="label">快递公司：</view>
+        <view class="text">{{shipping_company}}</view>
+    </view>
+    <view class="a-row">
+        <view class="label">物流追踪：</view>
+        <view class="text">{{tracking_number}}</view>
+    </view>
+  </view>
+  <view class="sec-wrap">
+    <view class="details-info">
+      <view class="line-box"></view>
+      <view class="a-row" wx:for-items="{{traces}}" wx:key="{{index}}">
+          <view class="dot">
+              <view class="active-dot" hidden="{{index== 0 ? false : true}}"><view class="yuan-red"></view></view>
+              <view class="default-dot" hidden="{{index== 0 ? true : false}}"></view>
+          </view>
+          <view class="info">
+              <view class="date-box">{{item.time}}</view>
+              <view class="text">{{item.info}}</view>
+          </view>
+      </view>
+
+    </view>
+  </view>
+</view>
+<float-menu /> 

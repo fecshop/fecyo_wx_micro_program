@@ -73,6 +73,9 @@
   width: 100%;
   background-color: #fff;
   margin-top: 20rpx;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 0;
+
 }
 
 .order-list .a-order .order-date {

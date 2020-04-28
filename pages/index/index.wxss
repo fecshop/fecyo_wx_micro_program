@@ -39,8 +39,6 @@ page{
 .swiper-container .swiper_box {
   width: 750rpx;
   height: 750rpx;
-	border-bottom-right-radius: 20rpx;
-	border-bottom-left-radius: 20rpx;
 	overflow: hidden;
 }
 
@@ -76,12 +74,11 @@ page{
 }
 .index-menu-bg{
 	position: relative;
-	width: 710rpx;
-	left: 20rpx;
-	margin-top: -50rpx;
+	
+	margin-top: 1rpx;
 	background: linear-gradient(#fff,#f2f2f2);
-	border-top-left-radius: 15rpx;
-	border-top-right-radius: 15rpx;
+	padding: 15rpx 20rpx 5rpx;
+
 }
 .index-menu .menu-list{
 	width: 177.5rpx;
