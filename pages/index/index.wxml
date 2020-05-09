@@ -49,24 +49,23 @@
 
 	  </navigator>
 	</view>
+  
+ <!--
   <view class="languages-container" >
     <view style="display:inline-block"></view>
     <picker style="display:inline-block" bindchange="changeLanguage" mode="selector" range="{{languages}}" value="{{langIndex}}" >
           <view class="picker">
-            {{language.change_language}}：{{languages[langIndex]}} <!-- (1) -->
+            {{language.change_language}}：{{languages[langIndex]}} 
           </view>
         </picker>
   </view>
-
- <!--
+-->
   <view class="languages-container" >
     <view style="display:inline-block"></view>
     <picker style="display:inline-block" bindchange="changeCurrency" mode="selector" range="{{currencys}}" value="{{currencyIndex}}" >
-          <view class="picker">
-            {{language.change_currency}}：{{currencys[currencyIndex]}} 
-          </view>
-        </picker>
+      <view class="picker">
+        {{language.change_currency}}：{{currencys[currencyIndex]}} 
+      </view>
+    </picker>
   </view>
-</view>
--->
 </view>

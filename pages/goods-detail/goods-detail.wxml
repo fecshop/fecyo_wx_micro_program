@@ -233,7 +233,7 @@
       </view>
       <view class="show-share-code" bindtap="getcode">
         <image src="../../images/kanjia/share_img.png" />
-        <text>生成二维码</text>
+        <text>生成海报</text>
       </view>
     </view>
   </view>
@@ -243,7 +243,7 @@
   <view class="show-code-box">
     <view class="show-code-re">
       <image src="{{codeimg}}" />
-      <view class="show-code-btn" bindtap="savecode">保存商品二维码</view>
+      <view class="show-code-btn" bindtap="savecode">保存海报</view>
     </view>
   </view>
 </view>

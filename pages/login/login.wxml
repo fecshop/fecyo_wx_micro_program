@@ -44,7 +44,7 @@
           
         </view>
         <button type="warn" class="save-btn" formType="submit">{{language.bind_account}}</button>
-        
+        <button type="primary" class="save-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" >{{language.read_form_weixin}}</button>
       </form>
     </view>
     

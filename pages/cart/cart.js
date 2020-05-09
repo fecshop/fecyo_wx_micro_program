@@ -43,6 +43,7 @@ Page({
       delBtnWidth: delBtnWidth
     });
   },
+  
   toDetailsTap: function (e) {
     wx.navigateTo({
       url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id

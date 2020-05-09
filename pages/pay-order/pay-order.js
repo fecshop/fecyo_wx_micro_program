@@ -138,7 +138,15 @@ Page({
       },
       header: app.getRequestHeader(),
       success: function (res) {
-        if (res.data.code == '200') {
+        if (res.data.code == '2000008') { // 用户默认收货地址为空
+          wx.navigateTo({
+            url: "/pages/address-add/address-add"
+          })
+        } else if (res.data.code == '1500007') { // 购物车数据为空
+          wx.navigateTo({
+            url: "/pages/cart/cart"
+          })
+        } else if (res.data.code == '200') {
           var resAddress = res.data.data.default_address
           if (resAddress.street1 && resAddress.telephone) {
             var curAddressData = {

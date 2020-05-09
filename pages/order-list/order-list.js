@@ -49,7 +49,7 @@ Page({
     this.setData({
       currentType: curType
     });
-    //this.onShow();
+    this.onShow();
   },
   orderDetail: function (e) {
     var orderId = e.currentTarget.dataset.id;

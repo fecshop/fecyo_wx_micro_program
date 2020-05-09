@@ -10,13 +10,13 @@
     <view class="sales-title">猜你喜欢</view>
     <view class="goods-list">
       <view class="goods-box" wx:for="{{sales}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.id}}">
-        <view class="img-box">
+        <view class="img-box" bindtap="toDetailsTap" data-id="{{item.product_id}}">
           <image src="{{item.pic}}" class="image" />
           <view class="goods-characteristic">
             <text>{{item.characteristic}}</text>
           </view>
         </view>
-        <view class="goods-title">{{item.name}}</view>
+        <view class="goods-title" bindtap="toDetailsTap" data-id="{{item.product_id}}">{{item.name}}</view>
         <view style='display:flex;'>
           <view class="goods-price">Ұ{{item.minPrice}}</view>
           <view class="goods-price-naver">已售{{item.numberOrders}}</view>

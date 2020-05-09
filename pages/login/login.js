@@ -15,7 +15,7 @@ Page({
     loadAccount: 1,
     //语言 - begin
     language: '',
-    phone: '18661832866',
+    phone: '',
     captcha: '',
     reRequestCount: 0,
     //语言 - end
@@ -102,11 +102,14 @@ Page({
           success: function (res) {
             wx.hideLoading();
             app.saveReponseHeader(res);
-
+            //console.log(res);
             if (res.data.code == '1100025') { // 没有相关用户，需要绑定
               that.setData({
                 loadAccount: 2,
+                userinfo: res.data.data,
               });
+              //wx.setStorageSync('userinfo',userinfo);
+
               return
             }
             if (res.data.code == '200') { // 登陆成功，进行跳转
@@ -119,12 +122,12 @@ Page({
               //})
             } else { // 其他的失败情况，重新进行登陆操作，最大5次
               // 如果获取微信数据失败，则重复获取，最大5次
-              
+
               var reRequestCount = that.data.reRequestCount;
               that.setData({
                 reRequestCount: reRequestCount + 1,
               });
-              if (reRequestCount < 6) {
+              if (reRequestCount < 4) {//此逻辑是第五次执行后才跳过
                 // wx.showModal({
                 //   title: "提示",
                 //   content: "微信登录失败，重试中",
@@ -226,7 +229,6 @@ Page({
       }
     }.bind(this), 1000);
   },
-
   
   bindSave: function(e){
     var that = this;
@@ -332,5 +334,96 @@ Page({
         });
       }
     });
+  },
+  getPhoneNumber(e) {
+    var that = this;
+    // session_key = that.data.userinfo.session_key,
+    var encryptedData = e.detail.encryptedData;
+    var iv = e.detail.iv;
+    // openid = that.data.userinfo.openid;
+    console.log(e);
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
+      wx.checkSession({
+        success: function () {
+          that.deciyption(encryptedData, iv);
+        },
+        fail: function () {
+          that.wxLogin();
+          that.deciyption(this.data.userinfo.session_key, encryptedData, iv, openid);
+        }
+      })
+    }
+  },
+  deciyption(encryptedData, iv) {
+    var that = this;
+    wx.login({
+      success: function (res) {
+        wx.request({
+          url: app.globalData.urls + "/customer/login/bindaccount2",  // "/user/wxapp/login",
+          header: app.getPostRequestHeader(),
+          method: 'POST',
+          data: {
+            code: res.code,
+            encryptedData: encryptedData,
+            iv: iv,
+          },
+          success: function (res) {
+            wx.hideLoading();
+            app.saveReponseHeader(res);
+            //console.log(res);
+            if (res.data.code == '1100026') {  // 无法通过微信api获取信息
+              wx.showModal({
+                title: "提示",
+                content: "无法从Session中获取微信Openid，请重新绑定",
+                showCancel: false
+              });
+              that.wxLogin();
+              return;
+            } else if (res.data.code == '1100027') { // 登陆成功，进行跳转
+              wx.showModal({
+                title: "提示",
+                content: "您已经有绑定的账户",
+                showCancel: false
+              });
+              return;
+            } else if (res.data.code == '1100007') { // 没有相关用户，需要绑定
+              wx.showModal({
+                title: "提示",
+                content: "注册账户失败: " + res.data.data.errors,
+                showCancel: false
+              });
+
+            } else if (res.data.code == '1100029') { // 没有相关用户，需要绑定
+              wx.showModal({
+                title: "提示",
+                content: "该邮箱已经存在，请点击`已有账户`，输入邮箱密码进行账户绑定",
+                showCancel: false
+              });
+            } else if (res.data.code == '1100028') { // 没有相关用户，需要绑定
+              wx.showModal({
+                title: "提示",
+                content: "用户的账户密码不正确，请重新输入",
+                showCancel: false
+              });
+            } else if (res.data.code == '200') { // 没有相关用户，需要绑定
+              //wx.navigateTo({
+              //  url: "/pages/my/my"
+              //})
+              wx.navigateBack({
+                delta: 1
+              });
+            } else {
+              wx.showModal({
+                title: "提示",
+                content: "绑定失败，请重新绑定",
+                showCancel: false
+              });
+              that.wxLogin();
+            }
+          }
+        });
+      }
+    })
   }
+
 })
