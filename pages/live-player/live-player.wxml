@@ -1,0 +1,23 @@
+<import src="../../wxParse/wxParse.wxml" />
+<navigation id='Navigation' show-icon="{{true}}" title="直播列表" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="swiper-container">
+    <view class="goodsList">
+      <view class="a-gooods" wx:for="{{roomList}}" wx:key="{{roomList}}">
+        <view bindtap="openLivePlayerTap"  data-roomid="{{item.roomid}}"  class="a-goods-conts "  data-index="{{index}}">
+          <view class="goods-info">
+            <view class="img-box">
+              <image src="{{item.share_img}}" class="img" />
+            </view>
+            <view class="text-box">
+              <view class="goods-title">{{item.name}}</view>
+              <view class="goods-label status_{{item.live_status}}" data-status="{{item.live_status}}">{{item.live_status_str}}</view>
+              <view class="goods-label live_date_time" wx:if="{{item.live_status == 102 ? true : false}}">开播时间：{{item.start_time_str}}</view>
+              <view class="goods-label zbdaka">直播大咖：{{item.anchor_name}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

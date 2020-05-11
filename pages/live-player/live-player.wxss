@@ -1,0 +1,145 @@
+@import "/wxParse/wxParse.wxss";
+
+page {
+  background-color: #fff;
+  height:100%;
+}
+
+.container {
+  min-height: 100%;
+  padding-bottom: 100rpx;
+}
+
+.swiper-container {
+  width: 100%;
+  position: relative;
+  background-color: #f9f9f9;
+}
+
+.swiper_box {
+  width: 100%;
+  height: 750rpx;
+}
+
+swiper-item image {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  height: 750rpx;
+}
+
+.goods-info .img-box {
+  width: 240rpx;
+  height: 240rpx;
+  overflow: hidden;
+  margin-right: 20rpx;
+  background-color: #f5f5f5;
+
+}
+.img-box {
+  width: 340rpx;
+  background-color: #f5f5f5;
+  margin-bottom: 5px;
+  position: relative;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  overflow: hidden;
+
+}
+
+
+
+goods-info .img-box .img {
+  width: 240rpx;
+  height: 240rpx;
+
+}
+.img-box image {
+  width: 240rpx;
+  height: 240rpx;
+  display: block;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+
+}
+
+.goods-info .text-box {
+  width: 440rpx;
+  position: relative;
+
+}
+
+.goods-info .text-box .goods-title {
+  font-size: 28rpx;
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 10rpx 20rpx 5rpx 0;
+
+}
+
+
+.goods-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx 0 30rpx 25rpx;
+  width: 720rpx;
+  box-sizing: border-box;
+}
+
+
+.goods-info .text-box .goods-label {
+  font-size: 24rpx;
+  color: #999;
+  height: 38rpx;
+  line-height: 38rpx;
+  margin: 8rpx 0 25rpx 0;
+  width: 140rpx;
+  text-align: center;
+  border-radius: 10px;
+  padding: 2px 4px;
+  font-weight: 100;
+
+}
+
+.goods-info .text-box .goods-label.live_date_time
+{
+  width:auto;
+  text-align: left;
+}
+.goods-info .text-box .goods-label.zbdaka
+{
+  width:auto;
+  text-align: left;
+}
+
+.goods-info .text-box .goods-label.status_101{
+  color: #fff;
+  background: #5cb85c;
+}
+
+.goods-info .text-box .goods-label.status_102{
+  color: #fff;
+  background: #46b8da;
+}
+
+.goods-info .text-box .goods-label.status_103{
+  color: #fff;
+  background: #ddd;
+}
+
+
+.goods-info .text-box .goods-label.status_105{
+  color: #fff;
+  background: #5cb85c;
+}
+
+.goods-info .text-box .goods-label.status_106{
+  color: #fff;
+  background: #eea236;
+}
+.goods-info .text-box .goods-label.status_107{
+  color: #fff;
+  background: #ddd;
+}

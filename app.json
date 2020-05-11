@@ -28,7 +28,9 @@
     "pages/pay-order/pay-order",
     "pages/freshman/freshman",
     "pages/search/search",
-    "pages/order-review/order-review"
+    "pages/order-review/order-review",
+    "pages/liveplayer",
+    "pages/live-player/live-player"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -65,6 +67,12 @@
         "text": "我的"
       }
     ]
+  },
+  "plugins": {
+    "live-player-plugin": {
+      "version": "1.0.9",
+      "provider": "wx2b03c6e691cd7370"
+    }
   },
   "sitemapLocation": "sitemap.json"
 }
