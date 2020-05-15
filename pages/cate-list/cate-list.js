@@ -70,13 +70,14 @@ Page({
           //goods: [],
           loadingMoreHidden: true
         });
-        var goods = that.data.goods;
+        
         if (res.data.code != 200 || res.data.data.products.length == 0) {
           that.setData({
             loadingMoreHidden: false,
           });
           return;
         }
+        var goods = that.data.goods;
         for (var i = 0; i < res.data.data.products.length; i++) {
           goods.push(res.data.data.products[i]);
         }

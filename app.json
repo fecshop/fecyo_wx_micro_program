@@ -30,7 +30,10 @@
     "pages/search/search",
     "pages/order-review/order-review",
     "pages/liveplayer",
-    "pages/live-player/live-player"
+    "pages/live-player/live-player",
+    "pages/aftersale/aftersale",
+    "pages/aftersale-return/aftersale-return",
+    "pages/aftersale-returnstatus/aftersale-returnstatus"
   ],
   "window": {
     "navigationStyle": "custom",

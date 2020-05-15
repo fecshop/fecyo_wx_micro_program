@@ -1,0 +1,23 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.aftersale_return}}" show-title="{{true}}" class=""></navigation>
+<view class="goods-container">
+  <view class="goods-box" wx:for-items="{{favList}}" wx:key="{{index}}"  data-id="{{item.goodsId}}">
+    <view class="img-box">
+      <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view class="goods-title" style="height:35px;overflow:hidden;font-size:25rpx;">
+      {{item.goodsName}} {{item.custom_option_info_str}}
+    </view>
+    
+    <view bindtap="afterSaleReturn" data-itemid="{{item.itemId}}" data-orderid="{{orderId}}"  wx:if="{{item.isReviewed == 2}}" class="title-opacity">商品退货</view>
+    <view wx:if="{{item.isReviewed == 1}}" class="title-opacity">已退货</view>
+    
+    <view  style="width:50%;height:30px;overflow:hidden;font-size:25rpx;">
+      {{symbol}}{{item.price}}
+      <view  style="width:30rpx;height:35px;overflow:hidden;font-size:25rpx;float:right;color:#777;">×{{item.qty}}</view>
+    </view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">
+    <image src="/images/empty_collection.png" class="no-order-img"></image>
+    <view class="text">{{language.no_favorite}}</view>
+  </view>
+</view>

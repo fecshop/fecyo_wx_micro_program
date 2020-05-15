@@ -6,6 +6,14 @@
   background-color: #f5f5f5;
 	overflow: hidden;
 }
+page{
+  height:100%;
+}
+.goods-container {
+  width: 100%;
+  margin-bottom: 0px;
+  height:100%;
+}
 
 
 .status-box {

@@ -8,7 +8,9 @@ Page({
   data: {
     statusType: [], //["全部订单","待付款", "待发货", "待收货",  "已完成"], //["待付款", "待发货", "待收货", "待评价", "已完成"],
     currentType: 0,
+    orderList:[],
     tabClass: ["", "", "", "", ""],
+    page: 0,
     //语言 - begin
     language: '',
     //语言 - end
@@ -49,7 +51,11 @@ Page({
     this.setData({
       currentType: curType
     });
-    this.onShow();
+    this.setData({
+      page: 0,
+      orderList: []
+    });
+    this.getOrderList();
   },
   orderDetail: function (e) {
     var orderId = e.currentTarget.dataset.id;
@@ -75,7 +81,11 @@ Page({
             success: (res) => {
               wx.hideLoading();
               if (res.data.code == 200) {
-                that.onShow();
+                that.setData({
+                  page: 0,
+                  orderList: []
+                });
+                that.getOrderList();
               }
               app.saveReponseHeader(res);
             }
@@ -94,7 +104,7 @@ Page({
     var that = this;
     var order_increment_id = e.currentTarget.dataset.increment_id;
     wx.showModal({
-      title: that.data.language.is_sure_receive_order, //'确定要取消该订单吗？',  // Are you sure you want to cancel the order?
+      title: that.data.language.is_sure_receive_order, //
       content: '',
       success: function (res) {
         if (res.confirm) {
@@ -108,7 +118,11 @@ Page({
             success: (res) => {
               wx.hideLoading();
               if (res.data.code == 200) {
-                that.onShow();
+                that.setData({
+                  page: 0,
+                  orderList: []
+                });
+                that.getOrderList();
               } else {
                 wx.showModal({
                   title: that.data.language.warning, //'友情提示',
@@ -133,14 +147,17 @@ Page({
     })
   },
   orderReview: function (e) {
-    var orderId = e.currentTarget.dataset.id;
+    var increment_id = e.currentTarget.dataset.increment_id;
     wx.navigateTo({
-      url: "/pages/order-review/order-review?id=" + orderId + '&share=1'
+      url: "/pages/order-review/order-review?id=" + increment_id + '&share=1'
     })
   },
   afterSale: function (e) {
     var that = this;
     var orderId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "/pages/aftersale/aftersale?orderid=" + orderId + '&share=1'
+    })
   },
   reOrder: function (e) {
     var that = this;
@@ -270,7 +287,11 @@ Page({
               header: app.getRequestHeader(),
 	            success: (res) => {
 	              if (res.data.code == 200) {
-	                that.onShow();
+                  that.setData({
+                    page: 0,
+                    orderList: []
+                  });
+                  that.getOrderList();
 	                // 模板消息，提醒用户进行评价
 	                let postJsonString = {};
 	                postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
@@ -290,13 +311,14 @@ Page({
 	      }
 	  })
 	},
-  onShow: function (e) {
+  getOrderList: function () {
+    console.log("getOrderList");
     // 获取订单列表
     wx.showLoading();
     var that = this;
-    var postData = {
-      //token: app.globalData.token
-    };
+    that.setData({
+      page: that.data.page + 1
+    });
     var requestStatus = that.data.currentType;
     var wxRequestOrderStatus = '';
     if (requestStatus == 0) {
@@ -309,6 +331,7 @@ Page({
       url: app.globalData.urls + '/customer/order/index',
       data: {
         wxRequestOrderStatus: wxRequestOrderStatus,
+        p: that.data.page,
         withItems: 1
       },
       header: app.getRequestHeader(),
@@ -317,7 +340,7 @@ Page({
         wx.hideLoading();
         if (res.data.code == 200) {
           var orderList = res.data.data.orderList;
-          var orderListThis = [];
+          var orderListThis = that.data.orderList;
           if (orderList) {
             for (var x in orderList) {
               var order = orderList[x];
@@ -352,7 +375,7 @@ Page({
               } 
               orderListThis.push({
                 statusStr: statusStr,
-                id: order.increment_id,
+                id: order.order_id,
                 status: status,
                 orderNumber: order.increment_id,
                 is_reviewed: order.is_reviewed,

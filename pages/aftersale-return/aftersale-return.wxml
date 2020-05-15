@@ -1,0 +1,35 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.product_return}}" show-title="{{true}}" class=""></navigation>
+<view class="goods-container">
+
+  <view class="ordertop" style="padding: 50rpx 30rpx;font-size: 26rpx;">
+    <view style="margin-bottom: 10rpx;">订单编号：{{order_info.increment_id}}</view>
+    <view>订单时间：{{order_info.created_at}}</view>
+  </view>
+
+  <view class="goods-box" wx:for-items="{{favList}}" wx:key="{{index}}"  data-id="{{item.goodsId}}">
+    <view class="img-box">
+      <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view class="goods-title" style="height:35px;overflow:hidden;font-size:25rpx;">
+      {{item.goodsName}} {{item.custom_option_info_str}}
+    </view>
+    
+    <view  style="width:50%;height:30px;overflow:hidden;font-size:25rpx;">
+      {{symbol}}{{item.price}}
+      <view  style="width:30rpx;height:35px;overflow:hidden;font-size:25rpx;float:right;color:#777;">×{{item.qty}}</view>
+    </view>
+  </view>
+  <form bindsubmit="bindSave">
+    <view class="row-wrap">
+        <view class="label">退货个数：</view>
+        <view class="label-right">
+          <input name="return_qty" class="input" maxlength="11" type="text" placeholder="" value="{{favList[0].qty}}" />
+        </view>
+      </view>
+
+    <view class="ordertop" style="padding: 50rpx 30rpx;font-size: 26rpx;">
+      <view><button type="warn" class="save-btn" formType="submit" >退货提交</button></view>
+    </view>
+  </form>
+
+</view>

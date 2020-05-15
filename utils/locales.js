@@ -153,7 +153,8 @@ export default {
     "customer_order_receive_fail":"订单确认收货失败",
     "customer_order_reorder_fail":"重新下单失败",
     "order_review_info":"订单评价",
-
+    "aftersale_return":"售后退货",
+    "product_return":"商品退货",
     "bind_phone":"绑定手机"
     
     // "order_now_pay": "立即支付",

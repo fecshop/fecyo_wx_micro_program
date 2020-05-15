@@ -1,0 +1,42 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.product_return}}" show-title="{{true}}" class=""></navigation>
+<view class="goods-container">
+
+  <view class="ordertop" style="padding: 50rpx 30rpx;font-size: 26rpx;">
+    <view style="margin-bottom: 10rpx;">退货状态：{{as_info.status}}</view>
+  </view>
+
+  <view class="goods-box">
+    <view class="img-box">
+      <image src="{{as_info.image}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view class="goods-title" style="height:35px;overflow:hidden;font-size:25rpx;">
+      {{as_info.sku}}
+    </view>
+    
+    <view  style="width:50%;height:30px;overflow:hidden;font-size:25rpx;">
+      {{as_info.currency_symbol}}{{as_info.price}}
+      <view  style="width:30rpx;height:35px;overflow:hidden;font-size:25rpx;float:right;color:#777;">×{{as_info.qty}}</view>
+    </view>
+  </view>
+  <view wx:if="{{as_info.show_shipping}}">
+    <form bindsubmit="bindSave">
+      <view class="row-wrap">
+        <view class="label">物流公司：</view>
+        <picker bindchange="bindPickerProvinceChange" range="{{shipping_companys}}" range-key="name">
+          <view class="picker {{shipping_company=='请选择'?'hui':''}}">
+            {{selectShippingCompany}}
+          </view>
+        </picker>
+      </view>
+      <view class="row-wrap">
+        <view class="label">追踪号：</view>
+        <view class="label-right">
+          <input name="tracking_number" class="input" maxlength="11" type="text" placeholder="" value="{{as_info.tracking_number}}" />
+        </view>
+      </view>
+      <view wx:if="{{as_info.show_dispatch}}" class="ordertop" style="padding: 50rpx 30rpx;font-size: 26rpx;">
+        <view><button type="warn" class="save-btn" formType="submit" >退货发货</button></view>
+      </view>
+    </form>
+  </view>
+</view>
