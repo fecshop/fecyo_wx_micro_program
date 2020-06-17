@@ -62,7 +62,7 @@ Page({
       data: {},
       success: function (res) {
         wx.hideLoading();
-        // 如果已经登陆，则跳转page/my/my
+        // 如果已经登陆，则跳转到上一页
         if (res.data.code == '1100006') {
           wx.navigateBack({
             delta: 1
@@ -177,6 +177,10 @@ Page({
     var myreg = /^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
     return myreg.test(phone)
   },
+  listenerPhoneInput: function (e) {
+    this.data.phone = e.detail.value;
+  },
+
   fetchCapthcha : function(e){
     var that = this;
     var phone = that.data.phone;
