@@ -36,7 +36,7 @@
             
 
             <view class="btn cancel-btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">{{language.order_cancel_2}}</view>
-            <view class="btn topay-btn" hidden="{{item.status==0? false: true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}">{{language.order_now_pay}}</view>
+            <view class="btn topay-btn" hidden="{{item.status==0? false: true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}"  data-increment_id="{{item.orderNumber}}" >{{language.order_now_pay}}</view>
             <!--<view class="btn topay-btn" hidden="{{item.status==3? false: true}}" bindtap="orderDetail" data-id="{{item.id}}">去评价</view>-->
 
             <view class="btn topay-btn" hidden="{{item.status==3? false: true}}" bindtap="orderRecevie" data-increment_id="{{item.orderNumber}}" >{{language.order_receive}}</view>

@@ -97,8 +97,9 @@ Page({
   toPayTap: function (e) {
     var that = this;
     var orderId = e.currentTarget.dataset.id;
+    var order_increment_id = e.currentTarget.dataset.increment_id;
     var money = e.currentTarget.dataset.money;
-    wxpay.wxpay(app, money, orderId, "/pages/order-list/order-list?currentType=1&share=1");
+    wxpay.wxpay(app, money, order_increment_id, "/pages/order-list/order-list?currentType=1&share=1");
   },
   orderRecevie: function (e) {
     var that = this;
