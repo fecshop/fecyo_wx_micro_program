@@ -1,0 +1,29 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.my_wallets}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+
+  <view class="wallet_total">
+    <view>
+      <image class="wallet_img" src="../../images/dollar.233af57e5f.png"></image>
+      <view class="wallet_ye">钱包充值</view>
+    </view>
+    <view class="wal_s">
+      <navigator class="wal_item" url="/pages/my-wallet-recharge-history/my-wallet-recharge-history" >
+        <view  >[查看充值订单详细]</view>
+      </navigator>
+    </view>
+  </view>
+
+  <form bindsubmit="bindRecharge">
+    <view class="form-box">
+      <view class="row-wrap">
+        <view class="label">充值</view>
+        <view class="label-right">
+          <input name="rechargeAmount" class="input" type="text" placeholder="金额" value="" />
+        </view>
+      </view>
+      
+    </view>
+    <button type="warn" class="save-btn" formType="submit">充值</button>
+  </form>
+  
+</view>

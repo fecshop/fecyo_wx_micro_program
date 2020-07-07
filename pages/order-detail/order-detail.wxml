@@ -14,12 +14,12 @@
       </view>
     </view>
     <block >
-      <view wx:if="{{orderDetail.trackingNumber}}" class="wuliu-box">
+      <view  class="wuliu-box" wx:if="{{orderDetail.trackingCompany}}">
         <view class="icon-box">
           <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
         </view>
         <view class="right-text"  data-id="{{orderDetail.increment_id}}" data-number="{{orderDetail.trackingNumber}}">  <!--bindtap="wuliuDetailsTap" -->
-          <view class="order-number">
+          <view class="order-number" wx:if="{{orderDetail.trackingNumber}}">
             {{language.tracking_number}}：{{orderDetail.trackingNumber}}
           </view>
           <view class="order-number">
@@ -100,20 +100,18 @@
       </view>
     </form>
   </view>
-  <!--
-  <view class="peisong-way" hidden="true">
-    <view class="row-box">
-      <view class="row-label">配送方式</view>
-      <view class="right-text">顺丰快递</view>
+  <view class="peisong-way" >
+    <view class="row-box" wx:if="{{orderDetail.payment_method}}">
+      <view class="row-label">支付方式</view>
+      <view class="right-text">{{orderDetail.payment_method}}</view>
     </view>
-    <view class="row-box">
-      <view class="row-label">留言</view>
-      <view class="right-text">
-        <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
-      </view>
+    <view class="row-box" wx:if="{{orderDetail.shipping_method}}">
+      <view class="row-label">货运方式</view>
+      <view class="right-text">{{orderDetail.shipping_method}}</view>
     </view>
+    
+    
   </view>
-  -->
   <view class="goods-info">
     <view class="row-box">
       <view class="row-label">{{language.subtotal}}</view>

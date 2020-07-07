@@ -13,7 +13,7 @@ Page({
     cartSymbol: '',
     yunPrice: 0,
     grandTotal: 0,
-    
+    isWalletyo: false,
     goodsJsonStr: "",
     shippings: [],
     shippingMethods: [],
@@ -23,9 +23,11 @@ Page({
     //语言 - begin
     language: '',
     //语言 - end
-
+    point_type: '',
     coupon_available:[],
     coupon_cost:0,
+    point_cost:0,
+    pointOffsetInfo: {},
     coupon_selected:{},
     coupon_unavailable:[],
     discount_cost: 0,
@@ -126,15 +128,30 @@ Page({
       }
     });
   },
+  selectCustomerPoint: function(e) {
+    if (e.detail.value == '') {
+      this.setData({
+        point_type: 'cancel'
+      });
+    } else {
+      this.setData({
+        point_type: ''
+      });
+    }
+    this.initCartInfo()
+  },
+  
+
   initCartInfo: function () {
-    var that = this;
+    var that = this
     var shipping_method = this.data.shipping_method
     wx.showLoading();
     wx.request({
       url: app.globalData.urls + '/checkout/onepage/index',
       data: {
         // key: 'shopcart'
-        shipping_method: shipping_method
+        shipping_method: shipping_method,
+        point_type: that.data.point_type
       },
       header: app.getRequestHeader(),
       success: function (res) {
@@ -207,14 +224,8 @@ Page({
               se++;
             }
           }
-          //ar hasNoCoupons = true
-          //var youhuijine = 0
-          //var curCoupon = ''
-          //if (cart_info.coupon_code) {
-          //  hasNoCoupons = false;
-          //  youhuijine = cart_info.coupon_cost
-          //  curCoupon = cart_info.coupon_code
-          //}
+          var isWalletyo = res.data.data.walletyo;
+          isWalletyo = isWalletyo ? true : false;
           console.log(shippings)
           that.setData({
             //hasNoCoupons: hasNoCoupons,
@@ -234,8 +245,15 @@ Page({
             coupon_unavailable: res.data.data.cart_info.coupon_unavailable,
             discount_cost: res.data.data.cart_info.discount_cost,
             curAddressData: curAddressData,
+            isWalletyo: isWalletyo,
             goodsList: goodsList
           })
+          if (isWalletyo) {
+            that.setData({
+              point_cost: res.data.data.cart_info.point_cost,
+              pointOffsetInfo: res.data.data.cart_info.pointOffsetInfo
+            })
+          }
 
           console.log("shippingIndex:~~")
           console.log(shippingIndex)
@@ -454,6 +472,7 @@ Page({
     var postData = {
       order_remark: remark,
       shipping_method: that.data.shipping_method,
+      point_type: that.data.point_type
     };
     if (that.data.isNeedLogistics > 0) {
       if (!that.data.curAddressData) {

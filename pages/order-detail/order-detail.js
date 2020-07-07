@@ -110,7 +110,7 @@ Page({
             var orderDetail = {
               statusStr: order.order_status,
               trackingNumber: order.tracking_number,
-              trackingCompany: order.tracking_company,
+              trackingCompany: order.tracking_company_str,
               linkMan: order.customer_firstname + order.customer_lastname,
               mobile: order.customer_telephone,
               address: order.customer_address_street1,
@@ -118,6 +118,8 @@ Page({
               symbol: order.currency_symbol,
               product_amount: order.subtotal,
               shipping_cost: order.shipping_total,
+              payment_method: order.payment_method_str,
+              shipping_method: order.shipping_method_str,
               grand_total: order.grand_total,
               subtotal_with_discount: order.subtotal_with_discount,
 

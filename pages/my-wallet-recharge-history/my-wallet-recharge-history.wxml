@@ -1,0 +1,25 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.my_wallets}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="status-box">
+    
+  </view>
+  <view class="no-order" hidden="{{rechargeOrders.length > 0 ? true : false}}" style="height: {{bodyHeight}}px;">
+    <image src="/images/empty_order.png" class="no-order-img"></image>
+    <view class="text">{{language.no_order}}</view>
+  </view>
+  <view class="order-list" style="height:100%" hidden="{{rechargeOrders.length > 0 ? false : true}}">
+    <scroll-view hidden="{{rechargeOrders.length > 0 ? false : true}}" class="goods-container" bindscrolltolower="getWalletRechargeHistoryList" scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >
+      <view class="a-order goods-box" wx:for-items="{{rechargeOrders}}" wx:key="{{index}}">
+        <view class="order-date"  >
+          <view class="date-box">{{language.order_no}}：{{item.increment_id}}</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-des">
+            <view>{{item.orderStatusStr}}</view>
+            <view >{{item.symbolCode}}{{item.grand_total}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

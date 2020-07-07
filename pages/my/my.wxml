@@ -76,13 +76,37 @@
       <image src="../../images/jifen.png"></image>
       <view>{{language.my_coupons}}</view>
     </navigator>
-    <navigator hover-class="none" class="userinfo-item" url="/pages/my-coupons/my-coupons">
+    <navigator wx:if="{{!isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/my-coupons/my-coupons">
       <image src="../../images/jifen.png"></image>
       <view>{{language.my_coupons}}</view>
     </navigator>
-    <navigator hover-class="none" class="userinfo-item" url="/pages/my-coupons/my-coupons">
+    <navigator wx:if="{{!isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/my-coupons/my-coupons">
       <image src="../../images/jifen.png"></image>
       <view>{{language.my_coupons}}</view>
+    </navigator>
+
+    <navigator wx:if="{{isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/my-points/my-points">
+      <image src="../../images/profile_dfunding.png"></image>
+      <view>{{language.my_points}}</view>
+    </navigator>
+    <navigator wx:if="{{isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/my-wallet/my-wallet">
+      <image src="../../images/profile_tegral.png"></image>
+      <view>{{language.my_wallet}}</view>
+    </navigator>
+
+    <navigator wx:if="{{isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/my-review/my-review">
+      <image src="../../images/gonggao.png"></image>
+      <view>{{language.my_review}}</view>
+    </navigator>
+    
+    <navigator wx:if="{{isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/distribute/distribute">
+      <image src="../../images/share2.png"></image>
+      <view>{{language.distribute}}</view>
+    </navigator>
+
+    <navigator wx:if="{{isWalletyo}}" hover-class="none" class="userinfo-item" url="/pages/my-contacts/my-contacts">
+      <image src="../../images/notice.png"></image>
+      <view>{{language.my_contacts}}</view>
     </navigator>
   </view>
   <view class="userinfo-info" wx:if="{{logged}}">

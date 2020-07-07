@@ -18,5 +18,16 @@
     </view>
   </view>
   -->
-  <view class="pay-btn" bindtap="toPayTap" data-id="{{order}}" data-money="{{money}}">{{language.wxpay}} {{symbol}}{{money}}</view>
+  <view style="display:flex" wx:if="{{walletIsShow}}">
+    <view style="width:50%;background:#179B16;right: 0;" class="pay-btn" bindtap="toPayTap"  data-paytype="wxpay" data-id="{{order}}" data-money="{{money}}">{{language.wxpay}}</view>
+    <view wx:if="{{walletActive}}"  style="width:50%;" class="pay-btn" bindtap="toPayTap" data-paytype="wallet" data-id="{{order}}" data-money="{{money}}">{{language.walletpay}}</view>
+    <view wx:if="{{!walletActive}}"  style="width:50%;background:#999;" class="pay-btn"  data-paytype="wallet" data-id="{{order}}" data-money="{{money}}">{{language.no_walletpay}}</view>
+  </view>
+  
+  <view style="display:flex" wx:if="{{!walletIsShow}}">
+    <view style="background:#179B16;" class="pay-btn" bindtap="toPayTap"  data-paytype="wxpay" data-id="{{order}}" data-money="{{money}}">
+      {{language.wxpay}}       
+    </view>
+  </view>
+
 </view>

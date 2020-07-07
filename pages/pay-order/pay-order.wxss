@@ -452,3 +452,18 @@ form {
   display:none;
 }
 .coupon_select_img.active{display:block;}
+
+.point-view{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30rpx;
+  font-size: 28rpx;
+  padding-right: 30rpx;
+  background-color: #fff;
+  width: auto;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #666;
+  border-bottom: 30rpx solid #f5f5f5;
+}
+

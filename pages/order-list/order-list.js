@@ -59,13 +59,15 @@ Page({
   },
   orderDetail: function (e) {
     var orderId = e.currentTarget.dataset.id;
+    var order_increment_id = e.currentTarget.dataset.increment_id;
     wx.navigateTo({
-      url: "/pages/order-detail/order-detail?id=" + orderId + '&share=1'
+      url: "/pages/order-detail/order-detail?id=" + order_increment_id + '&share=1'
     })
   },
   cancelOrderTap: function (e) {
     var that = this;
     var orderId = e.currentTarget.dataset.id;
+    var order_increment_id = e.currentTarget.dataset.increment_id;
     wx.showModal({
       title: that.data.language.is_sure_cancel_order   , //'确定要取消该订单吗？',  // Are you sure you want to cancel the order?
       content: '',
@@ -75,7 +77,7 @@ Page({
           wx.request({
             url: app.globalData.urls + '/customer/order/cancel',
             data: {
-              orderId: orderId
+              orderId: order_increment_id
             },
             header: app.getRequestHeader(),
             success: (res) => {

@@ -10,7 +10,7 @@
       <image src="{{as_info.image}}" class="image" mode="aspectFill" lazy-load="true" />
     </view>
     <view class="goods-title" style="height:35px;overflow:hidden;font-size:25rpx;">
-      {{as_info.sku}}
+      {{as_info.product_name}}
     </view>
     
     <view  style="width:50%;height:30px;overflow:hidden;font-size:25rpx;">

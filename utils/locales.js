@@ -155,6 +155,22 @@ export default {
     "order_review_info":"订单评价",
     "aftersale_return":"售后退货",
     "product_return":"商品退货",
+    "my_points":"我的积分",
+    "my_wallet": "我的钱包",
+    "my_review":"我的评论",
+    "distribute":"分销商中心",
+
+    "all_detail":"全部明细",
+    "all_income": "全部收入",
+    "all_expenses": "全部支出",
+    "datetime": "日期",
+    "my_wallets": "我的钱包",
+    "customer_popint": "积分",
+    "walletpay": "余额支付",
+    "no_walletpay": "余额不足",
+    "": "",
+
+    "my_contacts": "客服留言",
     "bind_phone":"绑定手机"
     
     // "order_now_pay": "立即支付",
@@ -303,6 +319,8 @@ export default {
     "save_success":"Save successfully",
     "generating":"Generating...",
     "load_user_information":"Loading information...",
+    "my_points": "My Point",
+    "my_wallet": "My Wallet",
     "bind_phone": "绑定手机"
     // "search": "Search",
     

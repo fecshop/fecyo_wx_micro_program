@@ -120,6 +120,7 @@ Page({
             noSelect: true,
             list: []
           };
+          var items_count = 0
           if (cart_info) {
             goodsList.totalPrice = cart_info.grand_total;
             goodsList.currencySymbol = currency.symbol;
@@ -156,20 +157,17 @@ Page({
             that.setData({
               goodsList: goodsList
             });
-
-            var items_count = cart_info.items_count;
-            var shopCarInfo = {}
-            shopCarInfo.shopNum = items_count
-            wx.setStorage({
-              key: "shopCarInfo",
-              data: shopCarInfo
-            })
-            console.log(shopCarInfo)
-            app.getShopCartNum()
-
+            items_count = cart_info.items_count;
           }
+          var shopCarInfo = {}
+          shopCarInfo.shopNum = items_count
+          wx.setStorage({
+            key: "shopCarInfo",
+            data: shopCarInfo
+          })
+          console.log(shopCarInfo)
+          app.getShopCartNum()
           app.saveReponseHeader(res);
-
         }
       }
     })

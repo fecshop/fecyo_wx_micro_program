@@ -8,7 +8,12 @@ Page({
     //语言 - begin
     language: '',
     //语言 - end
+    walletActive: false,
+    customerBaseWallet: 0,
+    walletIsShow: false,
+    customerCurrWallet: 0
   },
+
   // 语言 
   // 设置language变量（翻译Object）
   setLanguage() {
@@ -28,7 +33,7 @@ Page({
     //this.initCartInfo()
   },
   onShow: function () {
-    //this.setLanguage();
+    this.initPayment();
   },
   onLoad: function (e) {
     var that = this;
@@ -50,11 +55,71 @@ Page({
     // 语言 - 结束
     
   },
+  initPayment: function (e) {
+    var that = this
+    var orderIncrementId = this.data.order
+    wx.request({
+      url: app.globalData.urls + '/checkout/wx/paymentinfo',
+      header: app.getRequestHeader(),
+      data: {
+        orderIncrementId: orderIncrementId
+      },
+      success: function (res) {
+        wx.hideLoading();
+        app.saveReponseHeader(res);
+        // 如果已经登陆，则跳转page/my/my
+        if (res.data.code == '200') {
+          var walletActive = res.data.data.walletActive
+          var customerBaseWallet = res.data.data.customerBaseWallet
+          var customerCurrWallet = res.data.data.customerCurrWallet
+          var walletIsShow = res.data.data.walletIsShow
+          console.log(walletActive)
+          console.log(customerBaseWallet)
+          console.log(customerCurrWallet)
+          that.setData({
+            walletActive: walletActive,
+            customerBaseWallet: customerBaseWallet,
+            customerCurrWallet: customerCurrWallet,
+            walletIsShow: walletIsShow
+          });
+        }
+      }
+    });
+
+  },
   toPayTap: function (e) {
     var that = this;
+    var paytype = e.currentTarget.dataset.paytype;
     var orderId = e.currentTarget.dataset.id;
     var money = e.currentTarget.dataset.money;
-    wxpay.wxpay(app, money, orderId, "/pages/order-list/order-list?currentType=1&share=1");
+    if ( paytype == "wxpay" ) {
+      wxpay.wxpay(app, money, orderId, "/pages/order-list/order-list?currentType=1&share=1");
+    } else if (paytype == "wallet") {
+      wx.request({
+        url: app.globalData.urls + '/payment/wallet/start',
+        header: app.getPostRequestHeader(),
+        method: 'POST',
+        data: {
+          order_increment_id: orderId
+        },
+        success: function (res) {
+          wx.hideLoading();
+          app.saveReponseHeader(res);
+          // 如果已经登陆，则跳转page/my/my
+          if (res.data.code == '200') {
+            var redirectUrl = "/pages/order-list/order-list"
+            wx.showToast({ title: '支付成功' })
+            wx.redirectTo({
+              url: redirectUrl
+            });
+          } else {
+
+          }
+        }
+      });
+    }
+    
+    
   },
   /*
   closeOreder: function () {

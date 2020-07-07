@@ -1,0 +1,44 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.my_wallets}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+
+  <view class="wallet_total">
+    <view>
+      <image class="wallet_img" src="../../images/dollar.233af57e5f.png"></image>
+      <view class="wallet_ye">目前钱包余额：{{walletAmount}}</view>
+    </view>
+    <view class="wal_s">
+      <navigator class="wal_item" url="/pages/my-wallet-recharge/my-wallet-recharge" >
+        <view  >[钱包充值]</view>
+      </navigator>
+      <navigator class="wal_item" url="/pages/my-wallet-cash/my-wallet-cash">
+        <view  >[钱包提现]</view>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="status-box">
+    <view bindtap="statusTap" class="status-label {{index == currentType ? 'active' : ''}}" wx:for-items="{{statusType}}" wx:key="{{index}}" data-index="{{index}}">
+      {{item}}
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+  </view>
+  <view class="no-order" hidden="{{walletList ? true : false}}" style="height: {{bodyHeight}}px;">
+    <image src="/images/empty_order.png" class="no-order-img"></image>
+    <view class="text">{{language.no_order}}</view>
+  </view>
+  <view class="order-list" style="height:100%" hidden="{{walletList ? false : true}}">
+    <scroll-view hidden="{{walletList ? false : true}}" class="goods-container" bindscrolltolower="getWalletList" scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >
+      <view class="a-order goods-box" wx:for-items="{{walletList}}" wx:key="{{index}}">
+        <view class="order-date"  >
+          <view class="date-box">{{language.datetime}}：{{item.created_at_str}}</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-des">
+            <view>{{item.type_str}}</view>
+            <view >{{item.amount}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

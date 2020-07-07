@@ -55,7 +55,18 @@
         <i class="promotion-icon">优惠券</i><span>{{coupon_available.length}}张可用， -{{cartSymbol}}{{coupon_cost}}</span>
         <image src="../../images/arrow-right.png"></image>
       </view>
-     <view class="goods-info">
+      <view wx:if="{{isWalletyo && pointOffsetInfo.customerPointEnough}}" class="point-view" >
+        <view>积分</view> <view>共{{pointOffsetInfo.customerPoint}}积分，可用{{pointOffsetInfo.availablePoint}}积分</view>
+        
+        <checkbox-group  bindchange="selectCustomerPoint">
+          <checkbox value="1" checked="{{pointOffsetInfo.useCustomerPoint}}"   />
+        </checkbox-group>
+      </view>
+      <view wx:if="{{isWalletyo && !pointOffsetInfo.customerPointEnough}}" class="point-view" >
+        <view>积分</view> <view>抱歉，您的积分不足，有货币满 {{pointOffsetInfo.useMinPoint> 0 ? pointOffsetInfo.useMinPoint : 0}} 个方可使用</view>
+      </view>
+
+      <view class="goods-info">
         <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
             <view class="row-label">{{language.subtotal}}</view>
             <view class="right-text">{{cartSymbol}} {{allGoodsPrice}}</view>
@@ -64,9 +75,14 @@
             <view class="row-label">{{language.shipping_cost}}</view>
             <view class="right-text">+ {{cartSymbol}} {{yunPrice}}</view>
         </view>
+        <view class="row-box" wx:if="{{isWalletyo}}" >
+            <view class="row-label">{{language.customer_popint}}</view>
+            <view class="right-text">- {{cartSymbol}} {{point_cost}}</view>
+        </view>
+
         <view class="row-box" wx:if="{{!hasNoCoupons}}">
             <view class="row-label">{{language.coupon}}</view>
-            <view class="right-text">- {{cartSymbol}} {{discount_cost}}</view>
+            <view class="right-text">- {{cartSymbol}} {{coupon_cost}}</view>
         </view>
      </view>
 

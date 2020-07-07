@@ -1,0 +1,62 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.my_wallets}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+
+  <view class="wallet_total">
+    <view>
+      <image class="wallet_img" src="../../images/dollar.233af57e5f.png"></image>
+      <view class="wallet_ye">钱包提现</view>
+    </view>
+    <view class="wal_s">
+      <navigator class="wal_item" url="/pages/my-wallet-cash-history/my-wallet-cash-history" >
+        <view  >[查看提现订单详细]</view>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="my_wallet_sum"> 
+    <view class="wallet_ye">钱包总金额：<view class="st">{{walletAmount}}</view></view>
+    <view class="wallet_ye">可提现金额：<view class="st">{{walletCashAmount}}</view></view>
+  </view>
+
+  <form bindsubmit="bindCash">
+    <view class="form-box">
+      <view class="row-wrap">
+        <view class="label">收款姓名</view>
+        <view class="label-right">
+          <input name="name" class="input" type="text" placeholder="收款姓名" value="" />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">收款手机</view>
+        <view class="label-right">
+          <input name="phone" class="input" type="text" placeholder="收款手机" value="" />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">支付方式</view>
+        <view class="label-right">
+          <input name="payment_method" class="input" type="text" placeholder="支付方式" value="" />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">收款账户</view>
+        <view class="label-right">
+          <input name="payment_no" class="input" type="text" placeholder="收款账户" value="" />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">提现金额</view>
+        <view class="label-right">
+          <input name="amount" class="input" type="text" placeholder="提现金额" value="" />
+        </view>
+      </view>
+      
+    </view>
+    <button type="warn" class="save-btn" formType="submit">钱包提现</button>
+  </form>
+  
+</view>

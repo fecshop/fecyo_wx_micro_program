@@ -33,7 +33,13 @@
     "pages/live-player/live-player",
     "pages/aftersale/aftersale",
     "pages/aftersale-return/aftersale-return",
-    "pages/aftersale-returnstatus/aftersale-returnstatus"
+    "pages/aftersale-returnstatus/aftersale-returnstatus",
+    "pages/my-points/my-points",
+    "pages/my-wallet/my-wallet",
+    "pages/my-wallet-recharge/my-wallet-recharge",
+    "pages/my-wallet-recharge-history/my-wallet-recharge-history",
+    "pages/my-wallet-cash/my-wallet-cash",
+    "pages/my-wallet-cash-history/my-wallet-cash-history"
   ],
   "window": {
     "navigationStyle": "custom",
