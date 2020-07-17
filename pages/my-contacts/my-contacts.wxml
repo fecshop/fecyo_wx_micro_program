@@ -1,0 +1,35 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.contact_us}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <form bindsubmit="bindSave">
+    <view class="form-box">
+      <view class="row-wrap">
+        <view class="label">{{language.address_name}}</view>
+        <view class="label-right">
+          <input name="name" class="input" type="text" placeholder="{{language.address_person_name}}" value="" />
+        </view>
+      </view>
+      <view class="row-wrap">
+        <view class="label">{{language.contact_email}}</view>
+        <view class="label-right">
+          <input name="email" class="input"  type="email" placeholder="{{language.email_address}}" value="" />
+        </view>
+      </view>
+      <view class="row-wrap">
+        <view class="label">{{language.mobile}}</view>
+        <view class="label-right">
+          <input name="mobile" class="input" maxlength="11" type="number" placeholder="{{language.mobile_number}}" value="" />
+        </view>
+      </view>
+      
+      <view class="addr-details">
+        <view class="label">{{language.contact_content}}</view>
+        <view class="label-right">
+          <!--<input class="input" type="text" placeholder="街道门牌信息"/>-->
+          <textarea name="contact_content" auto-height placeholder="{{language.contact_contents}}" value="" />
+        </view>
+      </view>
+    </view>
+    <button type="warn" class="save-btn" formType="submit">{{language.contact_us}}</button>
+    
+  </form>
+</view>

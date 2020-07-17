@@ -42,7 +42,8 @@ Page({
     sharebox: true,
 		title:"商品详情",
     barBg: 'red',
-		color: '#ffffff'
+		color: '#ffffff',
+    microshare: {}
   },
 
   //事件处理函数
@@ -137,6 +138,43 @@ Page({
       }
     })
   },
+  distributeAddHomeProduct: function(e) {
+    var that = this;
+    var sku_type = e.currentTarget.dataset.type;
+    var productId = that.data.id;
+
+    wx.request({
+      url: app.globalData.urls + '/distribute/mainpage/product',  // '/shop/goods/detail',
+      header: app.getPostRequestHeader(),
+      data: {
+        product_id: productId,
+        sku_type: sku_type
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.code == 200) {
+          var goodsDetail = that.data.goodsDetail
+          if (sku_type == 'add') {
+            goodsDetail.isDistributeHomeProduct = true
+          } else {
+            goodsDetail.isDistributeHomeProduct = false
+          }
+          that.setData({
+            goodsDetail: goodsDetail
+          })
+        }
+        app.saveReponseHeader(res);
+      }
+    });
+
+
+    // 
+
+
+
+
+
+  },
   getProductDetails: function() {
     var that = this
     wx.request({
@@ -183,6 +221,7 @@ Page({
         
         that.setData({
           goodsDetail: res.data.data.product,
+          microshare: res.data.data.microshare,
           //coupons: res.data.data.coupons,
           selectSizePrice: res.data.data.product.price_info.special_price ? res.data.data.product.price_info.special_price:0,
           buyNumber: 1,  //(res.data.data.basicInfo.stores > 0) ? 1 : 0,
@@ -466,8 +505,7 @@ Page({
       }
     }) 
   },
-  
-	
+  /*
   onShareAppMessage: function () {
     var that = this;
     that.setData({ sharebox: true })
@@ -484,7 +522,7 @@ Page({
       }
     }
   },
-  
+  */
   getfav: function () {
     //console.log(e)
     var that = this;
@@ -672,5 +710,31 @@ Page({
       sharebox: true,
       sharecode: true
     })
+  },
+  onShareAppMessage: function () {
+    var that = this;
+    var isDistribute = that.data.microshare.isDistribute;
+    var pageTitle = that.data.microshare.pageTitle;
+    var pageImgUrl = that.data.microshare.pageImgUrl;
+    var distributeCode = that.data.microshare.distributeCode;
+    var bidCookieName = that.data.bidCookieName;
+    console.log(that.data.microshare)
+    console.log(isDistribute)
+    console.log("distributeCode:" + distributeCode)
+    console.log("bidCookieName:" + bidCookieName)
+    // 得到分享url
+    var goodsId = that.data.goodsDetail._id
+    var shareUrl = '/pages/goods-detail/goods-detail?id=' + goodsId
+    if (isDistribute && distributeCode && bidCookieName) {
+      shareUrl += '&' + bidCookieName + '=' + distributeCode
+    }
+    console.log("pageTitle:" + pageTitle)
+    console.log("shareUrl:" + shareUrl)
+    console.log("pageImgUrl:" + pageImgUrl)
+    return {
+      title: pageTitle,
+      path: shareUrl,
+      imageUrl: pageImgUrl
+    }
   },
 })

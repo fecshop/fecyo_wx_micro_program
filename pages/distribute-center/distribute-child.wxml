@@ -1,0 +1,24 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.my_chid_distribute}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="status-box">
+  </view>
+  <view class="no-order" hidden="{{childColl.length > 0 ? true : false}}" style="height: {{bodyHeight}}px;">
+    <image src="/images/empty_order.png" class="no-order-img"></image>
+    <view class="text">{{language.no_distribute_child}}</view>
+  </view>
+  <view class="order-list" style="height:100%" hidden="{{childColl.length > 0 ? false : true}}">
+    <scroll-view hidden="{{childColl.length > 0 ? false : true}}" class="goods-container" bindscrolltolower="getChildList" scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >
+      <view class="a-order goods-box" wx:for-items="{{childColl}}" wx:key="{{index}}">
+        <view class="order-date"  >
+          <view class="date-box">{{language.datetime}}：{{item.distribute_created_at_str}}</view>
+        </view>
+        <view class="goods-info">
+          <view class="goods-des">
+            <view>手机：{{item.phone}}</view>
+            <view >状态：{{item.distribute_status_str}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

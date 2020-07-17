@@ -1,0 +1,55 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.distribute_share}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <form bindsubmit="bindSave">
+    <view class="form-box">
+      <view class="row-wrap">
+        <view class="label">{{language.person_name}}</view>
+        <view class="label-right">
+          <input name="name" class="input" type="text" placeholder="{{language.person_name}}" value="{{name}}" />
+        </view>
+      </view>
+      
+      <view class="row-wrap">
+        <view class="label">QQ</view>
+        <view class="label-right">
+          <input name="qq" class="input" maxlength="15" type="number" placeholder="{{language.qq_number}}" value="{{qq}}" />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">{{language.id_number}}</view>
+        <view class="label-right">
+          <input name="id_number" class="input" maxlength="22" type="number" placeholder="{{language.id_number_s}}" value="{{id_number}}" />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">身份证正面</view>
+        <view class="label-right">
+          <button style="width: 100px;display: inline-block;font-size: 25rpx;margin-top: 15rpx;" bindtap="uploadFrontImg">上传</button>
+          <image src='{{id_card_img_front}}' style='max-width: 50px;max-height: 35px;margin-left: 20rpx;' />
+        </view>
+      </view>
+
+      <view class="row-wrap">
+        <view class="label">身份证反面</view>
+        <view class="label-right">
+          <button style="width: 100px;display: inline-block;font-size: 25rpx;margin-top: 15rpx;" bindtap="uploadBackImg">上传</button>
+          <image src='{{id_card_img_back}}' style='max-width: 50px;max-height: 35px;margin-left: 20rpx;' />
+        </view>
+      </view>
+
+      
+    </view>
+    <button type="warn" class="save-btn" formType="submit">{{language.submit_request}}</button>
+    
+    <button type="default" class="cancel-btn" bindtap="bindCancel">{{language.cancel}}</button>
+  </form>
+
+  <view class="goods-button" >
+    <button class="pop-box-btn" open-type="share">
+      <image src="../../images/share.png"></image>
+    </button>
+  </view>
+
+</view>

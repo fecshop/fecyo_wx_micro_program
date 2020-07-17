@@ -1,0 +1,23 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.distribute_main_page_product}}" show-title="{{true}}" class=""></navigation>
+<view class="goods-container">
+  <view class="goods-box" wx:for-items="{{favList}}" wx:key="{{index}}" >
+    <view class="img-box">
+      <image src="{{item.pic}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view  bindtap="toDetailsTap" data-id="{{item.goodsId}}" class="goods-title" style="height:35px;overflow:hidden;font-size:25rpx;">{{item.goodsName}}</view>
+    <view class="good-money">
+      <block wx:if="{{item.price_info.special_price}}" >
+	      <view class="goods-price">{{item.price_info.special_price.symbol}} {{item.price_info.special_price.value}}</view>
+        <view class="goods-originalPrice">{{item.price_info.price.symbol}} {{item.price_info.price.value}}</view>
+      </block>
+      <block wx:if="{{!item.price_info.special_price}}" >
+        <view class="goods-list-money">{{item.price_info.price.symbol}} {{item.price_info.price.value}}</view>
+      </block>
+    </view>
+    <view class="title-opacity"   bindtap="removeGoods" data-id="{{item.goodsId}}" >{{language.remove_data}}</view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">
+    <image src="/images/empty_collection.png" class="no-order-img"></image>
+    <view class="text">{{language.no_main_page_product}}</view>
+  </view>
+</view>

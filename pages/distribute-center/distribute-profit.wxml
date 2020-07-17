@@ -1,0 +1,46 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.order_list}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="status-box" style="height:0">
+    
+  </view>
+  <view class="no-order" hidden="{{orderList ? true : false}}" style="height: {{bodyHeight}}px;">
+    <image src="/images/empty_order.png" class="no-order-img"></image>
+    <view class="text">{{language.no_order}}</view>
+  </view>
+  <view class="order-list" style="height:100%" hidden="{{orderList ? false : true}}">
+    <scroll-view hidden="{{orderList ? false : true}}" class="goods-container" bindscrolltolower="getOrderList" scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >
+      <view class="a-order goods-box" wx:for-items="{{orderList}}" wx:key="{{index}}">
+        <view class="order-date" bindtap="orderDetail" data-id="{{item.id}}"  data-order_item_id="{{item.order_item_id}}" data-increment_id="{{item.orderNumber}}" >
+          <view class="date-box">{{language.order_no}}：{{item.orderNumber}}</view>
+          <view class="status {{(item.status==-1 || item.status==4) ? '':'red'}}">{{item.order_status_str}}</view>
+        </view>
+        
+        <view bindtap="orderDetail" data-id="{{item.id}}" data-order_item_id="{{item.order_item_id}}" data-increment_id="{{item.orderNumber}}" >
+          <view style="display:flex;padding:0 30rpx">
+            <view style="padding: 10rpx;">
+              <image style="width: 120rpx;height: 120rpx;" src="{{item.product_image}}" />
+            </view>
+            <view style="font-size: 30rpx;padding: 10rpx;"> 
+              {{item.product_name}}
+            </view>
+            <view style="font-size: 30rpx;padding: 10rpx;">
+              {{item.symbolCode}}{{item.price}}
+            </view>
+          </view>
+        </view>
+        <view class="dists">
+          <view>分销等级: {{item.distribute_level_label}}</view>
+          <view style="display:flex">总利润: <view style="color:#e01;padding-left:5rpx">{{item.symbolCode}}{{item.distribute_profit}}</view></view>
+        </view>
+        <view class="price-box" style="display: flex;justify-content: flex-end;">
+          <view >
+            {{item.order_created_at_str}}
+          </view>
+        </view>
+        
+      </view>
+    </scroll-view>
+  </view>
+
+
+</view>

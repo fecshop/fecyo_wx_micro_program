@@ -13,7 +13,8 @@ var config = {
   'lang_code': 'zh',
   // 默认货币
   'currency_code': 'CNY',
-
+  // 分销商bid参数,下面是默认值，如果您在fecmall中更改了bid参数名称配置，哪里这里需要做改动，保持一致。
+  'distributeName': 'distributebid',
 	//版本标识，这里不需要修改
 	'version': '1.0.0',
 	//订单自动关闭时间，默认60分钟，以分为单位，填0则不自动关闭订单

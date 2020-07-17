@@ -12,6 +12,7 @@ Page({
     categoryId: '',
     page: 0,
     goods: [],
+    microshare: {},
     isLoadProduct: false
     //语言 - end
   },
@@ -83,6 +84,7 @@ Page({
         }
         that.setData({
           goods: goods,
+          microshare: res.data.data.microshare,
         });
         that.setData({
           isLoadProduct: false,
@@ -103,6 +105,31 @@ Page({
       that.fetchCategory()
     }
     
-  }
+  },
+  onShareAppMessage: function () {
+    var that = this;
+    var isDistribute = that.data.microshare.isDistribute;
+    var pageTitle = that.data.microshare.pageTitle;
+    var pageImgUrl = that.data.microshare.pageImgUrl;
+    var distributeCode = that.data.microshare.distributeCode;
+    var bidCookieName = that.data.bidCookieName;
+    console.log(that.data.microshare)
+    console.log(isDistribute)
+    console.log("distributeCode:" + distributeCode)
+    console.log("bidCookieName:" + bidCookieName)
+    // 得到分享url
+    var shareUrl = '/pages/cate-list/cate-list'
+    if (isDistribute && distributeCode && bidCookieName) {
+      shareUrl += '?' + bidCookieName + '=' + distributeCode
+    }
+    console.log("pageTitle:" + pageTitle)
+    console.log("shareUrl:" + shareUrl)
+    console.log("pageImgUrl:" + pageImgUrl)
+    return {
+      title: pageTitle,
+      path: shareUrl,
+      imageUrl: pageImgUrl
+    }
+  },
 
 })

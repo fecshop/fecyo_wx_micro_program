@@ -1,0 +1,24 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.my_reviews}}" show-title="{{true}}" class=""></navigation>
+<view class="goods-container">
+  <view class="status-box">
+  </view>
+  <view class="goods-box" wx:for-items="{{reviewList}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.product_id}}">
+    <view class="img-box">
+      <image src="{{item.image}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view class="goods-title" style="overflow:hidden;font-size:25rpx;">{{item.name}}</view>
+    <view class="title-opacity" style="margin-top:33rpx">{{item.rate_star_str}}</view>
+    <view class="good-money">
+      <view>{{language.review_datetime}}：{{item.review_date}}</view>
+      
+      <view style="margin-top: 15rpx;">{{language.review_content}}：{{item.review_content}}</view>
+    </view>
+    
+  </view>
+
+  <view hidden="{{reviewList ? true : false}}" class="no-more-goods">
+    <image src="/images/empty_collection.png" class="no-order-img"></image>
+    <view class="text">{{language.no_product_review}}</view>
+  </view>
+
+</view>

@@ -49,8 +49,8 @@ Page({
     var that = this
     // 生成充值订单
     wx.request({
-      url: app.globalData.urls + "/customer/wallet/cash",  // "/user/wxapp/login",
-      header: app.getRequestHeader(),
+      url: app.globalData.urls + "/distribute/wallet/getcashinfo",  // "/user/wxapp/login",
+      header: app.getPostRequestHeader(),
       method: 'GET',
       data: {},
       success: function (res) {
@@ -79,7 +79,7 @@ Page({
 
     // 生成充值订单
     wx.request({
-      url: app.globalData.urls + "/customer/wallet/cashrequest",  // "/user/wxapp/login",
+      url: app.globalData.urls + "/distribute/wallet/cashrequest",  // "/user/wxapp/login",
       header: app.getPostRequestHeader(),
       method: 'POST',
       data: {
@@ -96,7 +96,7 @@ Page({
         if (res.data.code == '200') { // 登陆成功，进行跳转
           console.log('cashrequest success')
           wx.navigateTo({
-            url: '/pages/my-wallet-cash-history/my-wallet-cash-history',
+            url: '/pages/distribute-center/distribute-wallet-cash-history',
           })
         } else {
           var errorMsg = res.data.data.errors

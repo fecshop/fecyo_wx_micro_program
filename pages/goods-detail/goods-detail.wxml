@@ -43,9 +43,15 @@
     <image src="../../images/arrow-right.png"></image>
   </view>
 
-  <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTapCoupon" data-product_id="{{goodsDetail._id}}">
-    <i class="promotion-icon">券</i><span>领取优惠券</span>
+  <view  class="row-arrow" bindtap="bindGuiGeTapCoupon" data-product_id="{{goodsDetail._id}}">
+    <i class="promotion-icon">券</i><span style="">领取优惠券</span>
     <image src="../../images/arrow-right.png"></image>
+  </view>
+
+  <view wx:if="{{goodsDetail.isDistribute}}" class="row-arrow" >
+    <span style="float:left;margin-right:10rpx;">分销商: </span>
+    <i  bindtap="distributeAddHomeProduct" data-type="add" wx:if="{{!goodsDetail.isDistributeHomeProduct}}" class="promotion-icon">加入首页产品</i>
+    <i  bindtap="distributeAddHomeProduct" data-type="remove" wx:if="{{goodsDetail.isDistributeHomeProduct}}" class="promotion-icon">从首页产品去除</i>
   </view>
 
   <view class="tab-header" bindtap="tabFun">

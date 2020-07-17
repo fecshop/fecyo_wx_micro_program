@@ -152,6 +152,45 @@ App({
 		}
 		return false;
 	},
+  getCurrentPageUrlOptions: function () {
+    var pages = getCurrentPages() //获取加载的页面
+    var currentPage = pages[pages.length - 1] //获取当前页面的对象
+    var url = currentPage.route //当前页面url
+    console.log("url====", url);
+    var options = currentPage.options //如果要获取url中所带的参数可以查看options
+    console.log("options====", options);
+
+    return options
+    //拼接url的参数
+    //var urlWithArgs = url + '?'
+    //for (var key in options) {
+    //  var value = options[key]
+    //  urlWithArgs += key + '=' + value + '&'
+    //}
+    //urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
+    //return urlWithArgs
+  },
+  getDistributeName: function(){
+    // return 'distributebid'
+    return this.siteInfo.distributeName
+  },
+  getDistributeBid: function(){
+    var distributebidName = this.getDistributeName()
+    var options = this.getCurrentPageUrlOptions()
+    console.log("options:");
+    console.log(options);
+    if (!options || !options.hasOwnProperty(distributebidName) || !options[distributebidName]) {
+      var storageDistributebid = wx.getStorageSync(distributebidName)
+      if (storageDistributebid) {
+
+        return storageDistributebid;
+      }
+    }
+    var distributebid = options[distributebidName]
+    wx.setStorageSync(distributebidName, distributebid);
+
+    return distributebid
+  },
   getRequestHeader: function(){
     var headers = {};
     // 从数据fecshop-data中取出来值
@@ -172,8 +211,15 @@ App({
     if (fecshop_access_token) {
       headers['access-token'] = fecshop_access_token;
     }
+    
+    // 分销bid
+    var distributeBid = this.getDistributeBid()
+    var distributebidName = this.getDistributeName()
+    if (distributeBid && distributebidName) {
+      headers[distributebidName] = distributeBid;
+    }
+    console.log("getRequestHeader:");
     console.log(headers);
-
     return headers;
   },
   getPostRequestHeader: function () {
@@ -196,8 +242,15 @@ App({
       headers['access-token'] = fecshop_access_token;
     }
     headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    
+    // 分销bid
+    var distributeBid = this.getDistributeBid()
+    var distributebidName = this.getDistributeName()
+    if (distributeBid && distributebidName) {
+      headers[distributebidName] = distributeBid;
+    }
+    console.log("getPostRequestHeader:");
     console.log(headers);
-
     return headers;
   },
   saveReponseHeader: function (request){

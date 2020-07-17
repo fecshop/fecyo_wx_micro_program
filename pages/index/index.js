@@ -27,12 +27,16 @@ Page({
     currencys: [],
     currencyCodes: [],
     currencyIndex: 0,
+    microshare: {},
+    bidCookieName: ''
 	},
 	onShow(){
 		var that = this
 		
 		//获取购物车商品数量
 		app.getShopCartNum()
+    // ajax请求
+    that.loadHomeData();
 	},
   // 语言 
   changeLanguage(e) {
@@ -82,7 +86,9 @@ Page({
             });
           }
           that.setData({
-            banners: res.data.data.banners
+            banners: res.data.data.banners,
+            microshare: res.data.data.microshare,
+            bidCookieName: res.data.data.bidCookieName,
           });
           // 货币
           that.initCurrency(res.data.data.currency)
@@ -157,8 +163,7 @@ Page({
 				iphone: true
 			})
 		}
-    // ajax请求
-    that.loadHomeData();
+    
 	},
 	swiperchange: function(e) {
 		this.setData({
@@ -241,5 +246,56 @@ Page({
 			})
 			app.fadeInOut(this,'fadeAni',0)
 		}
-	}
+	},
+  onShareAppMessage: function () {
+    var that = this;
+    var isDistribute = that.data.microshare.isDistribute;
+    var pageTitle = that.data.microshare.pageTitle;
+    var pageImgUrl = that.data.microshare.pageImgUrl;
+    var distributeCode = that.data.microshare.distributeCode;
+    var bidCookieName = that.data.bidCookieName;
+    //var shareSuccessMsg = '分享成功';
+    //var shareFailMsg = '分享失败';
+    console.log(that.data.microshare)
+    console.log(isDistribute)
+    console.log("distributeCode:" + distributeCode)
+    console.log("bidCookieName:" + bidCookieName)
+    // 得到分享url
+    var shareUrl = '/pages/index/index'
+    if (isDistribute && distributeCode && bidCookieName) {
+      shareUrl += '?' + bidCookieName + '=' + distributeCode
+      //wx.showModal({
+      //    title: "提示",
+      //    content: "您正在分享分销链接",
+      //    showCancel: false
+      //  });
+      //shareSuccessMsg = '分销分享成功'
+      //shareFailMsg = '分销分享失败'
+    }
+    console.log("pageTitle:" + pageTitle)
+    console.log("shareUrl:" + shareUrl)
+    console.log("pageImgUrl:" + pageImgUrl)
+    return {
+      title: pageTitle,
+      path: shareUrl,
+      imageUrl: pageImgUrl,
+      // 微信小程序分享现在不支持回调
+      success: function (res) {
+        //console.log("share sucess")
+        //wx.showModal({
+        //  title: "提示",
+        //  content: shareSuccessMsg,
+        //  showCancel: false
+        //});
+      },
+      fail: function (res) {
+        //console.log("share fail")
+        //wx.showModal({
+        //  title: "提示",
+        //  content: shareFailMsg,
+        //  showCancel: false
+        //});
+      }
+    }
+  }
 })

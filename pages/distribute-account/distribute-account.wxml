@@ -1,0 +1,77 @@
+<view class="container">
+	<view class="userinfo">
+    <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
+    <view class="">
+      <button bindtap="toShareDistribute" style="width: 27%;font-size: 13px;padding: 0;margin-top: 16px;position: relative;opacity: 1;height: auto;">邀请子分销商</button>
+    </view>
+	</view>
+  <view class="userinfo-notice" wx:if="{{noticeList}}">
+    <image src="../../images/gonggao.png" />
+    <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="6000">
+      <navigator wx:for-items="{{noticeList.dataList}}" wx:key="id" url="/pages/notice/notice?id={{item.id}}" hover-class="none" open-type="navigate">
+        <swiper-item >
+          <view class="notice_itemr">{{item.title}}</view>
+        </swiper-item>
+      </navigator>
+    </swiper>
+  </view>
+  <view class="userinfo-item" wx:if="{{logged}}">
+    <image src="../../images/profile_dfunding.png"></image>
+    <navigator url="/pages/distribute-center/distribute-order-list" hover-class="none">{{language.distribute_order}}</navigator>
+  </view>
+  <view class="user-cart-list" wx:if="{{logged}}">
+    <navigator hover-class="none" class="cart-list" url="/pages/distribute-center/distribute-order-list?currentType=1">
+      <view wx:if="{{noplay}}" class="red-dot">{{noplay}}</view>
+      <image src="../../images/order-details/orderform_pay.png"></image>
+      {{language.wait_pay}}
+    </navigator>
+    <navigator hover-class="none" class="cart-list" url="/pages/distribute-center/distribute-order-list?currentType=2">
+      <view wx:if="{{notransfer}}" class="red-dot">{{notransfer}}</view>
+      <image src="../../images/order-details/orderform_ship.png"></image>
+      {{language.wait_deliver}}
+    </navigator>
+    <navigator hover-class="none" class="cart-list" url="/pages/distribute-center/distribute-order-list?currentType=3">
+      <view wx:if="{{noconfirm}}" class="red-dot">{{noconfirm}}</view>
+      <image src="../../images/order-details/delivering.png"></image>
+      {{language.pending_receipt}}
+    </navigator>
+    <navigator hover-class="none" class="cart-list" url="/pages/distribute-center/distribute-order-list?currentType=4">
+      <view wx:if="{{noreputation}}" class="red-dot">{{noreputation}}</view>
+      <image src="../../images/order-details/orderform.png"></image>
+      {{language.order_complete}}
+    </navigator>
+  </view>
+  <view class="userinfo-item-box" wx:if="{{logged}}">
+    
+    <navigator hover-class="none" class="userinfo-item" url="/pages/distribute-center/distribute-child">
+      <image src="../../images/share2.png"></image>
+      <view>{{language.child_distribute}}</view>
+    </navigator>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/distribute-center/distribute-main-page">
+      <image src="../../images/profile_collection.png"></image>
+      <view>{{language.distribute_main_product}}</view>
+    </navigator>
+    <view class="userinfo-item">
+      <image src="../../images/profile_service.png"></image>
+      <view>{{language.my_service}}</view>
+      <button open-type="contact" session-from="weapp"></button>
+    </view>
+    <navigator hover-class="none" class="userinfo-item" url="/pages/distribute-center/distribute-profit">
+      <image src="../../images/profile_dfunding.png"></image>
+      <view>{{language.distribute_order_profit}}</view>
+    </navigator>
+    <navigator  hover-class="none" class="userinfo-item" url="/pages/distribute-center/distribute-wallet">
+      <image src="../../images/profile_tegral.png"></image>
+      <view>{{language.distribute_wallet}}</view>
+    </navigator>
+    <navigator  hover-class="none" class="userinfo-item" bindtap="goToCustomerAccount">
+      <image src="../../images/nav/my-on.png"></image>
+      <view>{{language.customer_account}}</view>
+    </navigator>
+
+  </view>
+  <view class="userinfo-info" wx:if="{{logged}}">
+    {{getInfo}}
+  </view>
+  <view class="login" wx:if="{{!logged}}"><button type="warn" bindtap="onReady"> {{language.go_to_login}} </button></view>
+</view>

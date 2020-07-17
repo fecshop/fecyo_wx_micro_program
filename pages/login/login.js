@@ -24,9 +24,10 @@ Page({
       curHdIndex: 0,
       curBdIndex: 0
     },
+    distribute_code:"",
     tabClass: ["", "", "", "", ""]
   },
-  onLoad: function () {
+  onLoad: function (e) {
     var that = this;
     //that.getUserApiInfo();
     //that.getUserAmount();
@@ -38,6 +39,14 @@ Page({
     event.on("languageChanged", this, this.setLanguage); // (2)
     // 设置当前页面的language Index - 每个页面都要有
     wx.T.setLocaleByIndex(wx.T.langIndex);
+
+    var storage_distribute_code = wx.getStorageSync('distribute_code');
+    if (storage_distribute_code) {
+      console.log("login page storage_distribute_code:" + storage_distribute_code)
+      that.setData({
+        distribute_code: storage_distribute_code
+      })
+    }
     // 语言 - 结束
     // 查看是否登陆，如果登陆，则跳转到 page/my/my, 如果没有登陆，则进行微信登陆。
     that.loginAccount();
@@ -64,9 +73,19 @@ Page({
         wx.hideLoading();
         // 如果已经登陆，则跳转到上一页
         if (res.data.code == '1100006') {
-          wx.navigateBack({
-            delta: 1
-          });
+          var distribute_code = that.data.distribute_code
+          if (distribute_code) {
+            var urlStr = '/pages/distribute-register/market-register'
+            urlStr += "?distribute_code=" + distribute_code
+            wx.navigateTo({
+              url: urlStr
+            })
+          } else {
+            wx.navigateBack({
+              delta: 1
+            });
+          }
+          
           //wx.navigateTo({
           //  url: "/pages/my/my"
           //})
@@ -113,9 +132,19 @@ Page({
               return
             }
             if (res.data.code == '200') { // 登陆成功，进行跳转
-              wx.navigateBack({
-                delta: 1
-              });
+              var distribute_code = that.data.distribute_code
+              if (distribute_code) {
+                var urlStr = '/pages/distribute-register/market-register'
+                urlStr += "?distribute_code=" + distribute_code
+                wx.navigateTo({
+                  url: urlStr
+                })
+              } else {
+                wx.navigateBack({
+                  delta: 1
+                });
+              }
+              
               //that.globalData.uid = res.data.data.uid;
               //wx.navigateTo({
               //  url: "/pages/my/my"
@@ -321,9 +350,19 @@ Page({
               //wx.navigateTo({
               //  url: "/pages/my/my"
               //})
-              wx.navigateBack({
-                delta: 1
-              });
+              var distribute_code = that.data.distribute_code
+              if (distribute_code) {
+                var urlStr = '/pages/distribute-register/market-register'
+                urlStr += "?distribute_code=" + distribute_code
+                wx.navigateTo({
+                  url: urlStr
+                })
+              } else {
+                wx.navigateBack({
+                  delta: 1
+                });
+              }
+              
             } else {
               wx.showModal({
                 title: "提示",
@@ -413,9 +452,19 @@ Page({
               //wx.navigateTo({
               //  url: "/pages/my/my"
               //})
-              wx.navigateBack({
-                delta: 1
-              });
+              var distribute_code = that.data.distribute_code
+              if (distribute_code) {
+                var urlStr = '/pages/distribute-register/market-register'
+                urlStr += "?distribute_code=" + distribute_code
+                wx.navigateTo({
+                  url: urlStr
+                })
+              } else {
+                wx.navigateBack({
+                  delta: 1
+                });
+              }
+              
             } else {
               wx.showModal({
                 title: "提示",

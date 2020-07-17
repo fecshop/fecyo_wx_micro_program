@@ -1,0 +1,37 @@
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.distribute_wallet_cash_history}}" show-title="{{true}}" class=""></navigation>
+<view class="container">
+  <view class="status-box">
+    
+  </view>
+  <view class="no-order" hidden="{{cashOrders.length > 0 ? true : false}}" style="height: {{bodyHeight}}px;">
+    <image src="/images/empty_order.png" class="no-order-img"></image>
+    <view class="text">{{language.no_distribute_wallet_cash_history}}</view>
+  </view>
+  <view class="order-list" style="height:100%" hidden="{{cashOrders.length ? false : true}}">
+    <scroll-view hidden="{{cashOrders.length > 0 ? false : true}}" class="goods-container" bindscrolltolower="getWalletCashHistoryList" scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >
+      <view class="a-order goods-box" wx:for-items="{{cashOrders}}" wx:key="{{index}}">
+        <view class="order-date"  >
+          <view class="date-box">{{language.order_no}}：{{item.id}}</view>
+
+          <view>{{item.orderStatusStr}}</view>
+          
+        </view>
+        <view class="goods-info" style="justify-content:space-between">
+          <view class="">
+            <view>支付方式：{{item.payment_method}}</view>
+            <view >收款账户：{{item.payment_no}}</view>
+            <view >收款姓名{{item.name}}</view>
+            <view >收款手机{{item.phone}}</view>
+          </view>
+          <view style="color:#e01">
+            {{item.symbolCode}}{{item.amount}}
+          </view>
+        </view>
+        <view hidden="{{item.remark ? false : true}}" style="color: #777; padding: 10rpx 30rpx;font-size: 30rpx;">
+          客服回复：{{item.remark}}
+        </view>
+      </view>
+    </scroll-view>
+    <br/><br/><br/>
+  </view>
+</view>

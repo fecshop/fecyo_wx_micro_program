@@ -13,7 +13,7 @@
   </view>
   <view class="no-order" hidden="{{pointList.length > 0 ? true : false}}" style="height: {{bodyHeight}}px;">
     <image src="/images/empty_order.png" class="no-order-img"></image>
-    <view class="text">{{language.no_order}}</view>
+    <view class="text">{{language.no_point_list}}</view>
   </view>
   <view class="order-list" style="height:100%" hidden="{{pointList.length > 0 ? false : true}}">
     <scroll-view hidden="{{pointList.length > 0 ? false : true}}" class="goods-container" bindscrolltolower="getPointList" scroll-y="true" style = "height:100%;position: relative;" scroll-into-view="{{toView}}" scroll-with-animation = "true" >

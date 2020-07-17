@@ -39,7 +39,22 @@
     "pages/my-wallet-recharge/my-wallet-recharge",
     "pages/my-wallet-recharge-history/my-wallet-recharge-history",
     "pages/my-wallet-cash/my-wallet-cash",
-    "pages/my-wallet-cash-history/my-wallet-cash-history"
+    "pages/my-wallet-cash-history/my-wallet-cash-history",
+    "pages/distribute-account/distribute-account",
+    "pages/distribute-register/distribute-register",
+    "pages/distribute-register/market-register",
+    "pages/distribute-center/distribute-order-list",
+    "pages/distribute-center/distribute-child",
+    "pages/distribute-center/distribute-wallet",
+    "pages/distribute-center/distribute-main-page",
+    "pages/distribute-center/distribute-profit",
+    "pages/distribute-center/distribute-order-view",
+    "pages/distribute-center/distribute-profit-view",
+    "pages/distribute-center/distribute-wallet-cash",
+    "pages/distribute-center/distribute-wallet-cash-history",
+    "pages/my-review/my-review",
+    "pages/my-contacts/my-contacts",
+    "pages/seckill/seckill"
   ],
   "window": {
     "navigationStyle": "custom",
