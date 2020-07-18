@@ -204,6 +204,7 @@ export default {
     "no_point_list":"还没有积分明细呢",
     "no_wallet_list":"还没有钱包明细呢",
     "contact_contents":"请填写您的留言",
+    "seckill":"秒杀",
     "bind_phone":"绑定手机"
     
     // "order_now_pay": "立即支付",

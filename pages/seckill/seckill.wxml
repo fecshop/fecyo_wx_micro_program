@@ -1,2 +1,76 @@
-<!--pages/seckill/seckill.wxml-->
-<text>pages/seckill/seckill.wxml</text>
+<navigation id='Navigation' show-icon="{{true}}" title="{{language.seckill}}" show-title="{{true}}" class=""></navigation>
+<view class="container {{iphone}}">
+  <view class="timeline fixed" id="timeline" style=""> 
+    <view class="grid_c1">       
+      <view class="timeline_list">                      
+        <view class="timeline_item timeline_item_selected">                 
+          <a class="timeline_item_link" href="javascript:void(0)">
+            <view class="timeline_item_link_skew">                     
+              <view class="timeline_item_link_skew_timewrap">                       
+                <i class="timeline_item_link_skew_time">今日秒杀</i>                     
+              </view>                     
+              <view class="timeline_item_link_skew_processwrap">                       
+                <i class="timeline_item_link_skew_processtips">进行中</i>                     
+              </view>                     
+              <view class="timeline_timecount">                       
+                <b class="timeline_timecount_txt">正在秒杀</b>                       
+                <b class="J-timeline_timecount_wrap timeline_timecount_time">
+                    超低价优惠
+                </b>                     
+              </view>                    
+            </view>                 
+          </a>               
+        </view>                            
+        <view class="timeline_item ">
+                          
+        </view>                            
+      </view>
+    </view>  
+  </view>   
+</view>
+<view class="good-list-page yoho-page"> 
+  <view id="goods-container" class="goods-container" style="font-size:28rpx">
+    <view class="default-goods container clearfix">
+      <view wx:for-items="{{goods}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item.product_id}}" class="good-info" style="width: 100%; padding: 1%;  margin: 0;  height: 7rem;  border-bottom: 1px solid #eaeaea; padding-top: 0.8rem;">
+        <view class="good-detail-img" style="height:5.75rem;float:left;width:5.75rem">
+          <view class="good-thumb" >  
+            <image lazy-load="true"   style="width:5.5rem;max-height:5.75rem;" class="lazyload" src="{{item.image}}" />
+          </view>
+        </view>
+        <view style="float:left;width:9rem">
+          <view class="good-detail-text " style="position:relative;height:50px;">
+            <view style="font-size:22rpx;height:65rpx;overflow:hidden" >
+              {{item.name}}
+            </view>
+          </view>
+          <view class="good-detail-text " style="position:relative;height: 2rem;">
+            <view wx:if="{{item.special_price}}"  class="c_price" style="display:flex;">
+              <view class="price sp">
+                {{item.price.symbol}}{{item.price.value}}	
+              </view>
+              <view class="special_price">
+                {{item.price.symbol}}{{item.special_price.value}}
+              </view>
+            </view>
+            <view wx:if="{{!item.special_price}}"  class="c_price" style="display:flex;">
+              <view class="special_price">
+                {{item.price.symbol}}{{item.price.value}}	
+              </view>
+            </view>
+          </view>
+            
+          <view>
+            <view class="seckill_mod_goods_progress">
+              <i class="seckill_mod_goods_progress_txt">已售{{item.seckill_rate}}%</i>
+              <i class="seckill_mod_goods_progress_inner">
+                <b class="seckill_mod_goods_progress_completed" style="width:{{item.seckill_rate}}%"></b>
+              </i>                         
+            </view>
+          </view>
+          
+        </view>
+        <view class="seckill_mod_goods_info_i">立即抢购</view>
+      </view>
+    </view>
+  </view>
+</view>

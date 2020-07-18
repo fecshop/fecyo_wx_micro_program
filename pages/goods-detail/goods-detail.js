@@ -226,6 +226,38 @@ Page({
           selectSizePrice: res.data.data.product.price_info.special_price ? res.data.data.product.price_info.special_price:0,
           buyNumber: 1,  //(res.data.data.basicInfo.stores > 0) ? 1 : 0,
         });
+        // 秒杀倒计时
+        var goodsDetail = res.data.data.product
+        if (goodsDetail.price_info.seckill && goodsDetail.price_info.seckill.is_seckilling) {
+          // that.loveTime(goodsDetail)
+          setInterval(function () {
+            var end_time = goodsDetail.price_info.seckill.end_time * 1000;
+            var date = end_time - Date.parse(new Date());
+            date = date > 0 ? date : 0;
+            var hours = Math.floor(date / 1000 / 60 / 60);
+            var hoursmod = date - (hours * 1000 * 60 * 60);
+            var minutes = Math.floor(hoursmod / 1000 / 60);
+            var minutesmod = date - (hours * 1000 * 60 * 60) - (minutes * 1000 * 60);
+            var seconds = Math.floor(minutesmod / 1000); // 到这里结束，是将总毫秒转化成对应天数+小时数+分钟数+秒数的转换方法
+            // 小时数最高99
+            if (hours > 99) {
+              hours = 99;
+            }
+            hours = hours >= 10 ? hours : '0' + hours;
+            minutes = minutes >= 10 ? minutes : '0' + minutes;
+            seconds = seconds >= 10 ? seconds : '0' + seconds;
+
+            goodsDetail.price_info.seckill.end_hours = hours
+            goodsDetail.price_info.seckill.end_mins = minutes
+            goodsDetail.price_info.seckill.end_seconds = seconds
+
+            that.setData({
+              goodsDetail: goodsDetail
+            })
+
+          }, 1000);
+          //that.setCountDown();
+        }
         WxParse.wxParse('article', 'html', res.data.data.product.description, that, 5);
         app.saveReponseHeader(res);
       }
@@ -737,4 +769,30 @@ Page({
       imageUrl: pageImgUrl
     }
   },
+  loveTime: function () {
+    var goodsDetail = this.goodsDetail
+    var end_time = goodsDetail.price_info.seckill.end_time * 1000 ;
+    var date = end_time - Date.parse(new Date());
+    date = date > 0 ? date : 0;
+    var hours = Math.floor(date / 1000 / 60 / 60) ;
+    var hoursmod = date - (hours * 1000 * 60 * 60) ;
+    var minutes = Math.floor(hoursmod / 1000 / 60);
+    var minutesmod = date - (hours * 1000 * 60 * 60) - (minutes * 1000 * 60);
+    var seconds = Math.floor(minutesmod / 1000); // 到这里结束，是将总毫秒转化成对应天数+小时数+分钟数+秒数的转换方法
+    hours = hours >= 10 ? hours : '0' + hours;
+    minutes = minutes >= 10 ? minutes : '0' + minutes;
+    seconds = seconds >= 10 ? seconds : '0' + seconds;
+
+    goodsDetail.price_info.seckill.end_hours = hours
+    goodsDetail.price_info.seckill.end_mins = minutes
+    goodsDetail.price_info.seckill.end_seconds = seconds
+
+    this.setData({
+      goodsDetail: goodsDetail
+    })
+    
+  }
+
+  // 
+
 })

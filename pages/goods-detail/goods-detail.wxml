@@ -22,6 +22,19 @@
     <view class="goods-left">
       <view class="goods-title">{{goodsDetail.name}}</view>
       
+      <view wx:if="{{goodsDetail.price_info.seckill && goodsDetail.price_info.seckill.is_seckilling}}" class="activity-banner  J-seckill seckilling" id="banner-miaosha" style="">
+        <view class="activity-type">
+            <i class="sprite-seckilling"></i>
+            <strong>今日秒杀</strong>
+        </view>
+        <view class="activity-price"></view>
+        
+        <view class="activity-message">距离结束 
+          <span>{{goodsDetail.price_info.seckill.end_hours}}</span>:
+          <span>{{goodsDetail.price_info.seckill.end_mins}}</span>:
+          <span>{{goodsDetail.price_info.seckill.end_seconds}}</span></view>
+      </view>
+
       <block wx:if="{{goodsDetail.price_info.special_price.value}}">
         <view class="goods-price">{{goodsDetail.price_info.special_price.symbol}} {{goodsDetail.price_info.special_price.value}}</view>
         <view class="goods-originalPrice">{{goodsDetail.price_info.price.symbol}} {{goodsDetail.price_info.price.value}}</view>

@@ -1,66 +1,99 @@
-// pages/seckill/seckill.js
+//index.js
+//获取应用实例
+var app = getApp()
+// 语言
+var util = require('../../utils/util.js')
+import event from '../../utils/event'
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    //语言 - begin
+    language: '',
+    goods: [],
+    microshare: {}
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  toDetailsTap: function (e) {
+    wx.navigateTo({
+      url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  setLanguage() {
+    this.setData({
+      language: wx.T.getLanguage()
+    });
+    //this.fetchSeckills();
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  changeLanguage() {
+    this.setData({
+      language: wx.T.getLanguage()
+    });
+    this.fetchSeckills();
   },
+  onLoad: function (e) {
+    wx.showLoading();
+    console.log(e.id)
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+    var that = this;
+    that.setData({
+      categoryId: e.id
+    });
+    // 语言
+    // 设置当前页面的language变量 - 每个页面都要有
+    this.setLanguage();
+    event.on("languageChanged", this, this.changeLanguage); // (2)
+    // 设置当前页面的language Index - 每个页面都要有
+    wx.T.setLocaleByIndex(wx.T.langIndex);
+    // 语言 - 结束
 
+    if (app.globalData.iphone == true) { that.setData({ iphone: 'iphone' }) }
+    that.fetchSeckills();
   },
+  fetchSeckills: function () {
+    var that = this;
+    wx.request({
+      url: app.globalData.urls + '/catalog/seckill/index',
+      header: app.getRequestHeader(),
+      data: {},
+      success: function (res) {
+        wx.hideLoading();
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+        if (res.data.code == 200) {
+          that.setData({
+            goods: res.data.data.products
+          });
+          return;
+        }
+        
+      }
+    })
   }
+  /*
+  onShareAppMessage: function () {
+    var that = this;
+    var isDistribute = that.data.microshare.isDistribute;
+    var pageTitle = that.data.microshare.pageTitle;
+    var pageImgUrl = that.data.microshare.pageImgUrl;
+    var distributeCode = that.data.microshare.distributeCode;
+    var bidCookieName = that.data.bidCookieName;
+    console.log(that.data.microshare)
+    console.log(isDistribute)
+    console.log("distributeCode:" + distributeCode)
+    console.log("bidCookieName:" + bidCookieName)
+    // 得到分享url
+    var shareUrl = '/pages/cate-list/cate-list'
+    if (isDistribute && distributeCode && bidCookieName) {
+      shareUrl += '?' + bidCookieName + '=' + distributeCode
+    }
+    console.log("pageTitle:" + pageTitle)
+    console.log("shareUrl:" + shareUrl)
+    console.log("pageImgUrl:" + pageImgUrl)
+    return {
+      title: pageTitle,
+      path: shareUrl,
+      imageUrl: pageImgUrl
+    }
+  },
+  */
+
 })

@@ -1,1 +1,83 @@
-/* pages/seckill/seckill.wxss */
+.timeline{width:100%;margin-bottom:10px;position:relative;height:60px}.timeline_timecount{font-size:14px;display:none;height:60px;overflow:hidden;text-align:left}.timeline_timecount_txt{display:block;margin-top:15px;line-height:1}.timeline_timecount_time{display:block;margin-top:5px;line-height:1}.timeline.o2data-lazyload{background:none}.timeline_list{width:1252px;margin-left:60px;height:60px}.timeline_item{float:left;line-height:60px;text-align:center;font-size:18px}.timeline_item_selected .timeline_item_link{width:350px}.timeline_item_selected .timeline_item_link .before,.timeline_item_selected .timeline_item_link:before{border-color:transparent transparent #e01222;content:" "}.timeline_item_selected .timeline_item_link .after,.timeline_item_selected .timeline_item_link:after{border-color:#e01222 transparent transparent;content:" "}.timeline_item_selected .timeline_item_link_skew{color:#fff;background:#e01222}.timeline_item_selected .timeline_timecount{display:inline-block}.timeline_item_selected .timeline_item_link_skew_processtips{color:#fff;border:1px solid #fff;display:none}.timeline_item_selected .timeline_item_link_skew_time{font-size:20px}.timeline_item_link{color:#000;width:285px;height:60px;display:block;overflow:hidden;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;position:relative;margin-left:-60px;outline:none}.timeline_item_link .before,.timeline_item_link:before{display:block;content:"";width:0;height:0;border-style:solid;border-width:0 0 60px 60px;border-color:transparent transparent #fff;position:absolute;left:0;top:0;zoom:1}.timeline_item_link .after,.timeline_item_link:after{display:block;content:"";width:0;height:0;border-style:solid;border-width:60px 60px 0 0;border-color:#fff transparent transparent;position:absolute;right:0;top:0;zoom:1}.timeline_item_link_skew{background:#fff;margin:0 60px;overflow:hidden;text-align:center;font-size:0}.timeline_item_link_skew_timewrap{height:60px;margin-right:10px}.timeline_item_link_skew_processwrap,.timeline_item_link_skew_timewrap{overflow:hidden;display:inline-block}.timeline_item_link_skew_time{vertical-align:middle;font-weight:700;font-size:14px;margin-left:10px}.timeline_item_link_skew_processtips{border:1px solid #666;padding:0 14px;vertical-align:middle;height:26px;line-height:25px;color:#666;-moz-border-radius:22px;border-radius:22px;font-size:12px;display:inline-block}.timeline.fixed .grid_c1{-moz-box-shadow:0 5px 20px -8px #4e4e4e;box-shadow:0 5px 20px -8px #4e4e4e}.timeline.fixed .timeline_list{margin-left:0}.timeline.fixed .timeline_item_link{width:230px;margin-left:0}.timeline.fixed .timeline_item_link .after,.timeline.fixed .timeline_item_link .before,.timeline.fixed .timeline_item_link:after,.timeline.fixed .timeline_item_link:before{display:none}.timeline.fixed .timeline_item_selected .timeline_item_link{width:270px}.timeline.fixed .timeline_item_link_skew{margin:0}.o2_mini .timeline_list{width:1200px}.o2_mini .timeline_item{font-size:14px}.o2_mini .timeline_item_link{width:253px}.o2_mini .timeline_item_selected .timeline_item_link{width:280px}.o2_mini .timeline_timecount{font-size:12px}.o2_mini .timeline_item_link_skew_timewrap{margin-right:5px}.o2_mini .timeline_item_link_skew_processtips{padding:0 8px;margin-left:5px}.o2_mini .timeline_item_link_skew_time{font-size:12px;margin-left:0}.o2_mini .timeline.fixed .timeline_item_link{width:190px}.o2_mini .timeline.fixed .timeline_item_selected .timeline_item_link{width:230px}.o2_safari .timeline_item_selected .timeline_item_link_skew_timewrap{vertical-align:13px}
+
+.good-detail-img .good-thumb img{
+    width: 200px;
+    margin: auto;
+    display: block;
+} 
+.sale-price{
+    font-size: 20px;
+    color: #e01222;
+    font-family: arial;
+    margin-right: 2px;
+    line-height: 1;
+    display: inline-block;
+    min-width: 50px;
+    font-weight:100;
+}
+
+.seckill_mod_goods_info_i {
+    color: #fff;
+height: 40px;
+line-height: 40px;
+font-size: 16px;
+display: block;
+margin: 155rpx 10rpx 0;
+width: 80px;
+text-align: center;
+background: #df0021;
+float: right;
+
+
+}  
+.c_price{
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+.moregoods .seckill_mod_goods_progress {
+    margin-top: 0;
+}
+.seckill_mod_goods_progress {
+    display: block;
+    margin-top: 5px;
+}
+
+.seckill_mod_goods_progress_inner {
+    width: 88px;
+    height: 8px;
+    background: #e6e6e6;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin-left: 5px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.seckill_mod_goods_progress_completed {
+    background: #e01222;
+    width: 40%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 8px;
+    margin-left: -5px;
+}
+.special_price{
+    float: left;
+    width: 2.2rem;
+    color: #df0021;
+    margin-left:15rpx
+}
+
+.good-detail-text  .price{
+    text-decoration: line-through;
+    display: inline-block;
+}
+
+
+
+
+
+
+
