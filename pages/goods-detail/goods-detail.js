@@ -166,14 +166,6 @@ Page({
         app.saveReponseHeader(res);
       }
     });
-
-
-    // 
-
-
-
-
-
   },
   getProductDetails: function() {
     var that = this
@@ -334,8 +326,6 @@ Page({
             duration: 2000
           })
         }
-
-
       }
     })
   },
@@ -407,8 +397,6 @@ Page({
     //})
 
   },
-
-  
   /**
   * 加入购物车
   */
@@ -792,7 +780,5 @@ Page({
     })
     
   }
-
-  // 
 
 })

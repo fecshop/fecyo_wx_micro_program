@@ -98,7 +98,6 @@ Page({
       apiAddid = 0;
     }
     
-    
     var stateCode = that.getStateCode()
     wx.request({
       url: app.globalData.urls + '/customer/address/save',

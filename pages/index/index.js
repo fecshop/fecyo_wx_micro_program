@@ -32,7 +32,6 @@ Page({
 	},
 	onShow(){
 		var that = this
-		
 		//获取购物车商品数量
 		app.getShopCartNum()
     // ajax请求

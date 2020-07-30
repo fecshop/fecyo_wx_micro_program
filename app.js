@@ -18,8 +18,6 @@ App({
 				}
 			}
 		});
-		//that.login()
-    
     // 初始化货币
     var fecshop_currency = wx.getStorageSync('fecshop-currency');
     if (!fecshop_currency) {
@@ -43,54 +41,7 @@ App({
 		that.globalData.share = that.siteInfo.shareProfile;
 	},
 	siteInfo: require("config.js"),
-  /*
-	login: function () {
-	  var that = this;
-	  var token = that.globalData.token;
-	  if (token) {
-	    wx.request({
-	      url: that.globalData.urls + "/user/check-token",
-	      data: {
-	        token: token
-	      },
-	      success: function (res) {
-	        if (res.data.code != 0) {
-	          that.globalData.token = null;
-	          that.login();
-	        }
-	      }
-	    });
-	    return;
-	  }
-	  wx.login({
-	    success: function (res) {
-	      wx.request({
-          url: that.globalData.urls + "/wx/account/login",  // "/user/wxapp/login",
-	        data: {
-	          code: res.code
-	        },
-	        success: function (res) {
-	          if (res.data.code == 1e4) {
-	            that.globalData.usinfo = 0;
-	            return;
-	          }
-	          if (res.data.code != 200) {
-	            wx.hideLoading();
-	            wx.showModal({
-	              title: "提示",
-	              content: "无法登录，请重试",
-	              showCancel: false
-	            });
-	            return;
-	          }
-	          that.globalData.token = res.data.data.token;
-	          that.globalData.uid = res.data.data.uid;
-	        }
-	      });
-	    }
-	  });
-	},
-  */
+  
 	sendTempleMsg: function (orderId, trigger, template_id, form_id, page, postJsonString) {
 	  var that = this;
 	  wx.request({
@@ -161,17 +112,9 @@ App({
     console.log("options====", options);
 
     return options
-    //拼接url的参数
-    //var urlWithArgs = url + '?'
-    //for (var key in options) {
-    //  var value = options[key]
-    //  urlWithArgs += key + '=' + value + '&'
-    //}
-    //urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
-    //return urlWithArgs
   },
   getDistributeName: function(){
-    // return 'distributebid'
+    
     return this.siteInfo.distributeName
   },
   getDistributeBid: function(){
@@ -211,7 +154,6 @@ App({
     if (fecshop_access_token) {
       headers['access-token'] = fecshop_access_token;
     }
-    
     // 分销bid
     var distributeBid = this.getDistributeBid()
     var distributebidName = this.getDistributeName()
@@ -242,7 +184,6 @@ App({
       headers['access-token'] = fecshop_access_token;
     }
     headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    
     // 分销bid
     var distributeBid = this.getDistributeBid()
     var distributebidName = this.getDistributeName()
@@ -254,14 +195,11 @@ App({
     return headers;
   },
   saveReponseHeader: function (request){
-
     //var fecshop_uuid = wx.getStorageSync('fecshop-uuid');
     var fecshop_access_token = wx.getStorageSync('access-token');
     var fecshop_lang = wx.getStorageSync('fecshop-lang');
     var fecshop_currency = wx.getStorageSync('fecshop-currency');
-
     var request_header = request.header;
-
     //var header_fecshop_uuid = request_header['Fecshop-Uuid'];
     //if (!header_fecshop_uuid) {
     //  header_fecshop_uuid = request_header['fecshop-uuid'];
@@ -270,7 +208,6 @@ App({
     if (!header_access_token) {
       header_access_token = request_header['access-token'];
     }
-
     var header_fecshop_lang = request_header['Fecshop-Lang'];
     if (!header_fecshop_lang) {
       header_fecshop_lang = request_header['fecshop-lang'];
@@ -279,7 +216,6 @@ App({
     if (!header_fecshop_currency) {
       header_fecshop_currency = request_header['fecshop-currency'];
     }
-    
     //if (header_fecshop_uuid && (header_fecshop_uuid != fecshop_uuid)) {
     //  wx.setStorageSync('fecshop-uuid', header_fecshop_uuid);
     //}
@@ -292,7 +228,6 @@ App({
     if (header_fecshop_currency && (header_fecshop_currency != fecshop_currency)) {
       wx.setStorageSync('fecshop-currency', header_fecshop_currency);
     }
-    
   },
   
   // 设置页面底部的购物车产品个数

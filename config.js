@@ -1,11 +1,5 @@
 var config = {
-	 //链接源，一般不需要修改
-	//'url': 'https://api.it120.cc/',
-	
-	//这里填写你自己的工厂个性域名，工厂后台首页可以看到
-  //'subDomain': 'fireshop',
-
-  //      https://api.it120.cc/fireshop
+	// Fecmall Appserver 的域名地址，需要https才能线上使用
   'url': 'https://fecyoserver.fecshop.com',
   'subDomain': '',
 
@@ -20,15 +14,15 @@ var config = {
 	//订单自动关闭时间，默认60分钟，以分为单位，填0则不自动关闭订单
 	'closeorder': '60', 
 	//关闭订单模版ID，这里填写你自己的模版消息ID
-	'closeorderkey': 'ihjZ2LiMQUH-G9UR9B2TDI0xQWRb0m4IT5_8s1nbZS0',
+	'closeorderkey': '',
 	
 	//发货提醒模版ID，这里填写你自己的模版消息ID
-	'deliveryorderkey': 'HXtRlV3djH9MFVOm_kjMQv4GLXC4q7EdyUc9XUzOEgk',
+	'deliveryorderkey': '',
 	
 	//评价模版提醒ID，这里填写你自己的模版消息ID
-	'assessorderkey': 'SbpRcF3FQnK9qIieYTHpQYYvuar6xOqVfs_6bNuxtlw',
+	'assessorderkey': '',
 	
 	//已评价模版提醒ID，这里填写你自己的模版消息ID
-	'successorderkey': 'uySaxE9mAJYTvsshRibxSLCxFA1beXXf-USc7ftD_pA'
+	'successorderkey': ''
 }
 module.exports = config
