@@ -63,7 +63,7 @@
         </checkbox-group>
       </view>
       <view wx:if="{{isWalletyo && !pointOffsetInfo.customerPointEnough}}" class="point-view" >
-        <view>积分</view> <view>抱歉，您的积分不足，有货币满 {{pointOffsetInfo.useMinPoint> 0 ? pointOffsetInfo.useMinPoint : 0}} 个方可使用</view>
+        <view>积分</view> <view>抱歉，您的积分不足，积分满 {{pointOffsetInfo.useMinPoint> 0 ? pointOffsetInfo.useMinPoint : 0}} 个方可使用</view>
       </view>
 
       <view class="goods-info">

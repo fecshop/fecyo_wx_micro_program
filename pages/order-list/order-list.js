@@ -36,18 +36,15 @@ Page({
     //this.initCartInfo()
   },
   statusTap: function (e) {
-    var obj = e;
-    var count = 0;
-    for (var key in obj) {
-      count++;
-    }
-    if (count == 0) {
-      var curType = 0;
-    } else {
-      console.log('出现Cannot read property "dataset" of undefined;这样的错误是正常的，不用管！');
-      var curType = e.currentTarget.dataset.index;
-    }
-    this.data.currentType = curType
+    this.setData({
+      page: 0,
+      orderList: []
+    });
+    this.getOrderList();
+  },
+
+  statusTap2: function (e) {
+    var curType = e.currentTarget.dataset.index;
     this.setData({
       currentType: curType
     });
@@ -57,6 +54,7 @@ Page({
     });
     this.getOrderList();
   },
+
   orderDetail: function (e) {
     var orderId = e.currentTarget.dataset.id;
     var order_increment_id = e.currentTarget.dataset.increment_id;
@@ -101,7 +99,7 @@ Page({
     var orderId = e.currentTarget.dataset.id;
     var order_increment_id = e.currentTarget.dataset.increment_id;
     var money = e.currentTarget.dataset.money;
-    wxpay.wxpay(app, money, order_increment_id, "/pages/order-list/order-list?currentType=1&share=1");
+    wxpay.wxpay(app, money, order_increment_id, "/pages/order-list/order-list");
   },
   orderRecevie: function (e) {
     var that = this;
@@ -324,10 +322,10 @@ Page({
     });
     var requestStatus = that.data.currentType;
     var wxRequestOrderStatus = '';
-    if (requestStatus == 0) {
+    if (!requestStatus) {
       wxRequestOrderStatus = 'all'
     } else {
-      wxRequestOrderStatus = requestStatus -1;
+      wxRequestOrderStatus = requestStatus;
     }
     //this.getOrderStatistics();
     wx.request({
