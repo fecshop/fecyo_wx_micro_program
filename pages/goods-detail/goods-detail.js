@@ -179,6 +179,7 @@ Page({
         // console.log(res)
         var selectSizeTemp = "";
         var goodsDetail = res.data.data.product;
+
         if (!goodsDetail) {
           wx.showModal({
             title: that.data.language.error,
@@ -199,7 +200,7 @@ Page({
           }
         }
         
-        if (!is_custom_option_empty || goodsDetail.options.length != 0) {
+        if (!is_custom_option_empty || (goodsDetail.options && goodsDetail.options.length != 0)) {
           for (var i = 0; i < goodsDetail.options.length; i++) {
             selectSizeTemp = selectSizeTemp + " " + goodsDetail.options[i].label;
           }
@@ -210,7 +211,8 @@ Page({
             selectptPrice: res.data.data.product.price_info.price
           });
         }
-        
+        console.log("1111111111");
+        console.log(res.data.data.product);
         that.setData({
           goodsDetail: res.data.data.product,
           microshare: res.data.data.microshare,
