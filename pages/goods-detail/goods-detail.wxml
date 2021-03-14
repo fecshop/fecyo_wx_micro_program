@@ -192,7 +192,7 @@
             <view class="label-item {{item.active == 'current' ? 'active' : '' }}" wx:for="{{property.value}}" wx:key="id" bindtap="labelOptionsItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}" data-propertychildindex="{{index}}"
               data-propertychildid="{{item._id}}" data-propertychildname="{{item.attr_val}}" data-optionid="{{item._id}}">
               <view wx:if="{{item.show_as_img}}">
-                11<image style="width:40px;height:40px;" src="{{item.show_as_img}}" />22
+                <image style="width:40px;height:40px;" src="{{item.show_as_img}}" />
               </view>
               <view wx:else>
                 {{item.attr_val}}
