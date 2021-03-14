@@ -159,14 +159,13 @@ page{
   display: inline-block;
   width: 45%;
   margin-left: 26rpx;
-  height: 480rpx;
   overflow: hidden;
   margin-bottom: 20rpx;
 }
 
 .goods-list image {
   width: 340rpx;
-  height: 340rpx;
+  
   border-radius: 6rpx;
 }
 

@@ -36,7 +36,7 @@
 	    <view class="line"></view><view class="text">{{topgoods.value}}</view><view class="line"></view>
 	  </view>
 	  <navigator url="/pages/goods-detail/goods-detail?id={{item.id}}" class="goods-list" wx:for-items="{{goods}}" wx:key="{{index}}">
-	    <image src="{{item.pic}}" lazy-load="true" />
+	    <image mode="widthFix" src="{{item.pic}}" lazy-load="true" />
 	    <view class="goods-list-title">{{item.name}}</view>
       
       <block wx:if="{{item.special_price}}" >

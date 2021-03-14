@@ -428,6 +428,7 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 200) {
+          wx.hideLoading();
           var qty = res.data.data.items_count;
           var shopCarInfo = {}
           shopCarInfo.shopNum = qty
@@ -490,6 +491,7 @@ Page({
         product_id: that.data.goodsDetail._id
       },
       success: function (res) {
+        wx.hideLoading();
         if (res.data.code == 200) {
           var qty = res.data.data.items_count;
           var shopCarInfo = {}
