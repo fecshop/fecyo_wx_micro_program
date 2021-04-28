@@ -40,6 +40,7 @@ Page({
       curBdIndex: 0
     },
     hideShopPopupCoupon: true,
+    isWalletyo: false,
   },
   onShow: function () {
     //console.log(this.data.orderType)
@@ -165,6 +166,10 @@ Page({
           })
         } else if (res.data.code == '200') {
           var resAddress = res.data.data.default_address
+          var walletyo = res.data.data.hasOwnProperty("walletyo") ? res.data.data.walletyo : false;
+          that.setData({ isWalletyo: walletyo });
+          console.log(walletyo);
+
           if (resAddress.street1 && resAddress.telephone) {
             var curAddressData = {
               address: resAddress.street1,
@@ -513,8 +518,13 @@ Page({
         var orderIncrementId = res.data.data.increment_id;
         var grand_total = res.data.data.grand_total;
         var symbol = res.data.data.symbol;
+        var isWalletyo = that.data.isWalletyo ? 1 : 2;
+        console.log("isWalletyo:");
+        console.log(isWalletyo);
+
         wx.navigateTo({
-          url: "/pages/success/success?order=" + orderIncrementId + "&money=" + grand_total + "&symbol=" + symbol + "&id=" + orderIncrementId
+          url: "/pages/success/success?order=" + orderIncrementId + "&money=" + grand_total + "&symbol=" + symbol + "&id=" + orderIncrementId + "&walletyo=" + isWalletyo
+          
         })
 
         // "/pages/success/success?order=" + res.data.data.orderNumber + "&money=" + res.data.data.amountReal + "&id=" + res.data.data.id

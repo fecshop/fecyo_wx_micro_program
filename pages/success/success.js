@@ -11,6 +11,7 @@ Page({
     walletActive: false,
     customerBaseWallet: 0,
     walletIsShow: false,
+    isWalletyo:false,
     customerCurrWallet: 0
   },
 
@@ -33,16 +34,23 @@ Page({
     //this.initCartInfo()
   },
   onShow: function () {
-    this.initPayment();
+    if (this.data.isWalletyo) {
+      this.initPayment();
+    }
   },
   onLoad: function (e) {
     var that = this;
     if (app.globalData.iphone == true) { that.setData({ iphone: 'iphone' }) }
     if (e) {
+      var isWalletyo = e.walletyo == 1 ? true : false;
+      console.log("isWalletyo:");
+      console.log(isWalletyo);
+      console.log(isWalletyo)
       that.setData({
         money: e.money,
         symbol: e.symbol,
         order: e.order, 
+        isWalletyo: isWalletyo, 
         id: e.id
       });
     }
